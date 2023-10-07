@@ -1,32 +1,15 @@
 # Zsh related settings
 export ZSH="${XDG_DATA_HOME}/oh-my-zsh"
 export UPDATE_ZSH_DAYS=1
-
-# zsh 主题，软件默认的是 robbyrussell
-ZSH_THEME="agnoster"
-
-# 自动补全大小写敏感设置为 false
-CASE_SENSITIVE="false"
-
-# 开启自动更新
-DISABLE_AUTO_UPDATE="true"
-
-# 开启自动纠正错误
-ENABLE_CORRECTION="true"
-
-# 终端颜色
-export LS_COLORS=$LS_COLORS:'di=0;36'
+export ZSH_THEME="agnoster"
+export CASE_SENSITIVE="false" # 自动补全不区分大小写
+export DISABLE_AUTO_UPDATE="true" # 禁止自动更新
+export ENABLE_CORRECTION="true" # 开启自动纠正错误
+export LS_COLORS=$LS_COLORS:'di=0;36' # 终端颜色
 
 
 # Editor
 export EDITOR='nvim'
-
-
-
-# Python
-alias     pip='pip3'
-alias ipython='ipython3'
-
 
 
 # TrueNAS 特殊设置
@@ -35,7 +18,7 @@ if [[ $os_type == "TrueNAS_SCALE" ]]; then
     export PATH=$PATH:/sbin
     export PATH=$PATH:/mnt/Intel_750_RAID-Z1/newton/bin
 fi
-
+export     PATH=${HOME}/bin/:$PATH
 
 
 # 存储池相关目录
@@ -66,5 +49,3 @@ export   failed="${mdcx}/failed"
 
 # 其他相关
 export   harbor="app-registry.proxy.littlenewton.cn"
-export     PATH=${HOME}/bin/:$PATH
-
