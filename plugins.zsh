@@ -1,12 +1,6 @@
-plugins=(
-    bundler
-    dotenv
-    fzf-zsh-plugin
-    git
-    macos
-    rake
-    rbenv
-    ruby
-    zsh-autosuggestions
-    zsh-syntax-highlighting
-)
+export PLUG_DIR=$HOME/.local/share/zim/modules/
+if [[ ! -d $PLUG_DIR ]]; then
+	  curl -fsSL https://raw.githubusercontent.com/zimfw/install/master/install.zsh | zsh
+    rm ~/.zimrc
+    ln -s ~/.config/zsh/zimrc ~/.zimrc
+fi

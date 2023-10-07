@@ -1,0 +1,10 @@
+zmodule bundler
+zmodule dotenv
+zmodule git
+zmodule macos
+zmodule rake
+zmodule rbenv
+zmodule ruby
+zmodule unixorn/fzf-zsh-plugin
+zmodule zsh-users/zsh-autosuggestions
+zmodule zsh-users/zsh-syntax-highlighting
