@@ -1,0 +1,12 @@
+plugins=(
+    bundler
+    dotenv
+    fzf-zsh-plugin
+    git
+    macos
+    rake
+    rbenv
+    ruby
+    zsh-autosuggestions
+    zsh-syntax-highlighting
+)
