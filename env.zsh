@@ -24,7 +24,7 @@ export EDITOR='nvim'
 
 
 # Python
-alias pip='pip3'
+alias     pip='pip3'
 alias ipython='ipython3'
 
 
