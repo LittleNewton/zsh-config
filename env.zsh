@@ -1,5 +1,5 @@
 # Zsh related settings
-export ZSH="${XDG_CONFIG_HOME}/oh-my-zsh"
+export ZSH="${XDG_DATA_HOME}/oh-my-zsh"
 export UPDATE_ZSH_DAYS=1
 
 # zsh 主题，软件默认的是 robbyrussell
