@@ -18,3 +18,7 @@ alias ip='ip -color'
 
 # Directory Related
 alias dirs='dirs -lpv'
+
+# Python Related
+alias     pip='pip3'
+alias ipython='ipython3'
