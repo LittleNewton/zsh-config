@@ -1,5 +1,4 @@
 .vscode
-.zcompdump-epyc-debian-5.9
-.zcompdump-epyc-debian-5.9.zwc
+.zcompdump*
 .zhistory
 .zshrc.pre-oh-my-zsh
