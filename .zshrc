@@ -144,11 +144,11 @@ unset key
 autoload colors; colors
 
 source ${XDG_CONFIG_HOME}/zsh/functions/get_os_type.sh
-source ${XDG_CONFIG_HOME}/zsh/env.zsh
-source ${XDG_CONFIG_HOME}/zsh/aliases.zsh
-source ${XDG_CONFIG_HOME}/zsh/plugins.zsh
-source ${XDG_CONFIG_HOME}/zsh/mappings.sh
 source ${ZSH}/oh-my-zsh.sh
+source ${XDG_CONFIG_HOME}/zsh/functions/init_env.zsh
+source ${XDG_CONFIG_HOME}/zsh/functions/init_alias.zsh
+source ${XDG_CONFIG_HOME}/zsh/functions/init_plugin.zsh
+source ${XDG_CONFIG_HOME}/zsh/functions/init_mapping.sh
 source ${XDG_CONFIG_HOME}/zsh/functions/init_conda.sh
 source ${XDG_CONFIG_HOME}/zsh/functions/init_latex.sh
 source ${XDG_CONFIG_HOME}/zsh/functions/os_update.sh
