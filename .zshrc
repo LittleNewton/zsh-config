@@ -149,8 +149,8 @@ source ${XDG_CONFIG_HOME}/zsh/aliases.zsh
 source ${XDG_CONFIG_HOME}/zsh/plugins.zsh
 source ${XDG_CONFIG_HOME}/zsh/mappings.sh
 source ${ZSH}/oh-my-zsh.sh
-source ${XDG_CONFIG_HOME}/zsh/functions/set_conda.sh
-source ${XDG_CONFIG_HOME}/zsh/functions/set_latex.sh
+source ${XDG_CONFIG_HOME}/zsh/functions/init_conda.sh
+source ${XDG_CONFIG_HOME}/zsh/functions/init_latex.sh
 source ${XDG_CONFIG_HOME}/zsh/functions/os_update.sh
 source ${XDG_CONFIG_HOME}/zsh/functions/enable_k8s_comp.sh
 source ${XDG_CONFIG_HOME}/zsh/functions/enable_pip_comp.sh
