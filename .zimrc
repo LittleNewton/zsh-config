@@ -76,6 +76,6 @@ zmodule Aloxaf/fzf-tab
 #
 # Theme
 #
-zmodule eriner
+# zmodule eriner
 # }}} End configuration added by Zim install
 
