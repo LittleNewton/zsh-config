@@ -9,12 +9,12 @@
 #
 
 # My own custom modules.
-zmodule bundler
-zmodule dotenv
-zmodule macos
-zmodule rake
-zmodule rbenv
-zmodule ruby
+#zmodule bundler
+#zmodule dotenv
+#zmodule macos
+#zmodule rake
+#zmodule rbenv
+#zmodule ruby
 zmodule unixorn/fzf-zsh-plugin
 
 # Sets sane Zsh built-in environment options.
