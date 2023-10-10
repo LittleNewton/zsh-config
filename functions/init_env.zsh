@@ -1,13 +1,3 @@
-# Zsh related settings
-export ZSH="${XDG_DATA_HOME}/oh-my-zsh"
-export UPDATE_ZSH_DAYS=1
-export ZSH_THEME="agnoster"
-export CASE_SENSITIVE="false" # 自动补全不区分大小写
-export DISABLE_AUTO_UPDATE="true" # 禁止自动更新
-export ENABLE_CORRECTION="true" # 开启自动纠正错误
-export LS_COLORS=$LS_COLORS:'di=0;36' # 终端颜色
-
-
 # Editor
 export EDITOR='nvim'
 
