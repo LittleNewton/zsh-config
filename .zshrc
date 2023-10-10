@@ -143,14 +143,14 @@ unset key
 
 autoload colors; colors
 
-source ${XDG_CONFIG_HOME}/zsh/functions/get_os_type.sh
+source ${XDG_CONFIG_HOME}/zsh/functions/get_os_type.zsh
 source ${XDG_CONFIG_HOME}/zsh/functions/init_env.zsh
 source ${XDG_CONFIG_HOME}/zsh/functions/init_alias.zsh
-source ${XDG_CONFIG_HOME}/zsh/functions/init_ohmyzsh.sh
+source ${XDG_CONFIG_HOME}/zsh/functions/init_ohmyzsh.zsh
 source ${XDG_CONFIG_HOME}/zsh/functions/init_plugin.zsh
-source ${XDG_CONFIG_HOME}/zsh/functions/init_mapping.sh
-source ${XDG_CONFIG_HOME}/zsh/functions/init_conda.sh
-source ${XDG_CONFIG_HOME}/zsh/functions/init_latex.sh
-source ${XDG_CONFIG_HOME}/zsh/functions/os_update.sh
-source ${XDG_CONFIG_HOME}/zsh/functions/enable_k8s_comp.sh
-source ${XDG_CONFIG_HOME}/zsh/functions/enable_pip_comp.sh
+source ${XDG_CONFIG_HOME}/zsh/functions/init_mapping.zsh
+source ${XDG_CONFIG_HOME}/zsh/functions/init_conda.zsh
+source ${XDG_CONFIG_HOME}/zsh/functions/init_latex.zsh
+source ${XDG_CONFIG_HOME}/zsh/functions/os_update.zsh
+source ${XDG_CONFIG_HOME}/zsh/functions/enable_k8s_comp.zsh
+source ${XDG_CONFIG_HOME}/zsh/functions/enable_pip_comp.zsh
