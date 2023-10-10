@@ -23,5 +23,5 @@ source ${XDG_CONFIG_HOME}/zsh/functions/init_mapping.zsh
 source ${XDG_CONFIG_HOME}/zsh/functions/init_conda.zsh
 source ${XDG_CONFIG_HOME}/zsh/functions/init_latex.zsh
 source ${XDG_CONFIG_HOME}/zsh/functions/os_update.zsh
-source ${XDG_CONFIG_HOME}/zsh/functions/enable_k8s_comp.zsh
-source ${XDG_CONFIG_HOME}/zsh/functions/enable_pip_comp.zsh
+source ${XDG_CONFIG_HOME}/zsh/completion/kubeadm_auto_completion.sh
+source ${XDG_CONFIG_HOME}/zsh/completion/kubectl_auto_completion.sh
