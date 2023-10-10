@@ -20,7 +20,6 @@ source ${XDG_CONFIG_HOME}/zsh/functions/init_env.zsh
 source ${XDG_CONFIG_HOME}/zsh/functions/init_alias.zsh
 source ${XDG_CONFIG_HOME}/zsh/functions/init_plugin.zsh
 source ${XDG_CONFIG_HOME}/zsh/functions/init_mapping.zsh
-source ${XDG_CONFIG_HOME}/zsh/functions/init_ohmyzsh.zsh
 source ${XDG_CONFIG_HOME}/zsh/functions/init_conda.zsh
 source ${XDG_CONFIG_HOME}/zsh/functions/init_latex.zsh
 source ${XDG_CONFIG_HOME}/zsh/functions/os_update.zsh
