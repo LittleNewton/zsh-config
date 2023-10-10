@@ -7,7 +7,7 @@ init_zsh() {
 
     # check if ${XDG_DATA_HOME}/oh-my-zsh exists
     if [[ -d "${XDG_DATA_HOME}/oh-my-zsh" ]]; then
-				source ${ZSH}/oh-my-zsh.sh
+        source ${ZSH}/oh-my-zsh.sh
         return 0
     else
         echo "${XDG_DATA_HOME}/oh-my-zsh not exists,"
