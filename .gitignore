@@ -1,4 +1,6 @@
 .vscode
 .zcompdump*
+.zcompcache/
+.zcompcache
 .zhistory
 .zshrc.pre-oh-my-zsh
