@@ -42,7 +42,7 @@ export   harbor="app-registry.proxy.littlenewton.cn"
 
 
 # Go 语言相关
-export GOPATH="/usr/local/bin/go"
+export GOPATH="/usr/local/go"
 export PATH="$PATH:$GOPATH/bin"
 
 
