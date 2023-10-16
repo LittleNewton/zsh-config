@@ -8,7 +8,6 @@ if [[ $os_type == "TrueNAS_SCALE" ]]; then
     export PATH=$PATH:/sbin
     export PATH=$PATH:/mnt/Intel_750_RAID-Z1/newton/bin
 fi
-export     PATH=${HOME}/bin/:$PATH
 
 
 # 存储池相关目录
@@ -39,3 +38,7 @@ export   failed="${mdcx}/failed"
 
 # 其他相关
 export   harbor="app-registry.proxy.littlenewton.cn"
+
+
+# PATH 相关
+export PATH="$PATH:$HOME/bin"
