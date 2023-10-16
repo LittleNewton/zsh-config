@@ -36,8 +36,14 @@ export     mdcx="${jellyfin}/mdcx"
 export      tmm="${jellyfin}/tmm"
 export   failed="${mdcx}/failed"
 
+
 # 其他相关
 export   harbor="app-registry.proxy.littlenewton.cn"
+
+
+# Go 语言相关
+export GOPATH="/usr/local/bin/go"
+export PATH="$PATH:$GOPATH/bin"
 
 
 # PATH 相关
