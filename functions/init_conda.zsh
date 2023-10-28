@@ -20,7 +20,7 @@ set_conda() {
 
 
 
-    elif [[ $os_type == "Debian" ]]; then
+    elif [[ $os_type == "Debian" || $os_type == "Ubuntu" || $os_type == "Manjaro" ]]; then
 
 
 
