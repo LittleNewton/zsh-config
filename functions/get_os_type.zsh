@@ -28,7 +28,10 @@ get_os_type() {
         elif [[ $os_type == *"FreeBSD"* ]]; then
             os_type="FreeBSD"
 
-        # G. Other Linux distributions
+        # G. Manjaro 
+				elif [[ $os_type == *"Manjaro"* ]]; then
+						os_type="Manjaro"
+
         else
             os_type="Linux (Unknown Distribution)"
         fi
