@@ -11,15 +11,13 @@ fi
 
 
 # 存储池相关目录
-export    intel="/mnt/Intel_750_RAID-Z1"
-export  samsung="/mnt/Samsung_PM983A_RAID-Z1"
+export dapustor="/mnt/DapuStor_R5100_RAID-Z1"
 export  toshiba="/mnt/Toshiba_MG06S_RAID-Z1"
 export       wd="/mnt/WD_HC550_RAID-Z1"
 
-export  appdata="${intel}/app_data"
-export      doc="${intel}/Documents"
-
-export     soft="${samsung}/Software"
+export  appdata="${dapustor}/app_data"
+export      doc="${dapustor}/Documents"
+export     soft="${dapustor}/Software"
 
 export download="${toshiba}/Downloads"
 export   xunlei="${download}/Xunlei_Downloads"
