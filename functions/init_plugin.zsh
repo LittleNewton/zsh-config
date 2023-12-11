@@ -42,16 +42,5 @@ for key ('k') bindkey -M vicmd ${key} history-substring-search-up
 for key ('j') bindkey -M vicmd ${key} history-substring-search-down
 unset key
 
-
-# Zsh related settings
-export ZSH="${XDG_DATA_HOME}/oh-my-zsh"
-export UPDATE_ZSH_DAYS=1
-export ZSH_THEME="agnoster"
-export CASE_SENSITIVE="false" # 自动补全不区分大小写
-export DISABLE_AUTO_UPDATE="true" # 禁止自动更新
-export ENABLE_CORRECTION="true" # 开启自动纠正错误
-export LS_COLORS=$LS_COLORS:'di=0;36' # 终端颜色
-
-
-# Init Oh-My-Zsh at the last step.
-source ${ZSH}/oh-my-zsh.sh
+zstyle ':zim:prompt-pwd:fish-style' dir-length 0
+export PWD_COLOR=blue
