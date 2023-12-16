@@ -34,6 +34,11 @@ export     mdcx="${jellyfin}/mdcx"
 export      tmm="${jellyfin}/tmm"
 export   failed="${mdcx}/failed"
 
+# 编译 OpenWrt 相关
+if [[ $HOST == "4950-debian" ]]; then
+	export openwrt="${dapustor}/openwrt-compile/openwrt/"
+fi
+
 
 # 其他相关
 export   harbor="app-registry.proxy.littlenewton.cn"
