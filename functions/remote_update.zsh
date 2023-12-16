@@ -4,9 +4,9 @@ function remote-update() {
             ["Host"]="10.1.2.21"
             ["Port"]="21221"
         )
-        ["epyc-debian"]=(
-            ["Host"]="10.2.1.21"
-            ["Port"]="22121"
+        ["4950-debian"]=(
+            ["Host"]="10.2.2.21"
+            ["Port"]="22221"
         )
         ["z690-debian"]=(
             ["Host"]="10.2.3.21"
@@ -15,14 +15,6 @@ function remote-update() {
         ["r740-debian"]=(
             ["Host"]="10.2.4.21"
             ["Port"]="22421"
-        )
-        ["t630-debian"]=(
-            ["Host"]="10.2.5.21"
-            ["Port"]="22521"
-        )
-        ["nipc-debian"]=(
-            ["Host"]="124.16.71.120"
-            ["Port"]="10121"
         )
         ["7060-debian"]=(
             ["Host"]="10.3.1.21"
