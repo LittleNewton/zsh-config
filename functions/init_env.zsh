@@ -39,6 +39,11 @@ if [[ $HOST == "4950-debian" ]]; then
 	export openwrt="${dapustor}/openwrt-compile/openwrt/"
 fi
 
+# macOS 特殊路径
+if [[ $os_type == "macOS" ]]; then
+    export PATH=$PATH:/opt/homebrew/bin
+fi
+
 
 # 其他相关
 export   harbor="app-registry.proxy.littlenewton.cn"
