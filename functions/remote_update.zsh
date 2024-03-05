@@ -16,10 +16,6 @@ function remote-update() {
             ["Host"]="10.2.4.21"
             ["Port"]="22421"
         )
-        ["7060-debian"]=(
-            ["Host"]="10.3.1.21"
-            ["Port"]="23121"
-        )
         ["x1e-debian"]=(
             ["Host"]="10.3.2.21"
             ["Port"]="23221"
