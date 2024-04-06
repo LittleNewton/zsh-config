@@ -1,6 +1,8 @@
 .vscode
-.zcompdump*
-.zcompcache/
 .zcompcache
+.zcompcache/
+.zcompdump*
 .zhistory
+.zsh_history
+.zsh_sessions
 .zshrc.pre-oh-my-zsh
