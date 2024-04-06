@@ -41,7 +41,8 @@ fi
 
 # macOS 特殊路径
 if [[ $os_type == "macOS" ]]; then
-    export PATH=$PATH:/opt/homebrew/bin
+    export PATH=/Users/newton/bin/nvim/bin:$PATH
+    export PATH=/opt/homebrew/bin:$PATH
 fi
 
 
