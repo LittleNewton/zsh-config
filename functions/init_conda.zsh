@@ -59,6 +59,11 @@ set_conda() {
 
 
 
+    elif [[ $os_type == "OpenWrt" ]]; then
+        # Just do nothing because OpenWrt don't need Anaconda.
+
+
+
     else
         echo "Unsupported OS type: $os_type"
     fi
