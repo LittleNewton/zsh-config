@@ -42,6 +42,8 @@ set_conda() {
 
     elif [[ $os_type == "macOS" ]]; then
 
+
+
         # >>> conda initialize >>>
         # !! Contents within this block are managed by 'conda init' !!
         __conda_setup="$('/Users/newton/bin/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
