@@ -2,20 +2,22 @@ set_conda() {
     if [[ $os_type == "TrueNAS_SCALE" ]]; then
 
 
+
         # >>> conda initialize >>>
         # !! Contents within this block are managed by 'conda init' !!
-        __conda_setup="$('/mnt/DapuStor_R5100_RAID-Z1/newton/bin/[/mnt/DapuStor_R5100_RAID-Z1/newton/bin/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+        __conda_setup="$('/mnt/DapuStor_R5100_RAID-Z1/newton/bin/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
         if [ $? -eq 0 ]; then
             eval "$__conda_setup"
         else
-            if [ -f "/mnt/DapuStor_R5100_RAID-Z1/newton/bin/[/mnt/DapuStor_R5100_RAID-Z1/newton/bin/miniconda3/etc/profile.d/conda.sh" ]; then
-                . "/mnt/DapuStor_R5100_RAID-Z1/newton/bin/[/mnt/DapuStor_R5100_RAID-Z1/newton/bin/miniconda3/etc/profile.d/conda.sh"
+            if [ -f "/mnt/DapuStor_R5100_RAID-Z1/newton/bin/miniconda3/etc/profile.d/conda.sh" ]; then
+                . "/mnt/DapuStor_R5100_RAID-Z1/newton/bin/miniconda3/etc/profile.d/conda.sh"
             else
-                export PATH="/mnt/DapuStor_R5100_RAID-Z1/newton/bin/[/mnt/DapuStor_R5100_RAID-Z1/newton/bin/miniconda3/bin:$PATH"
+                export PATH="/mnt/DapuStor_R5100_RAID-Z1/newton/bin/miniconda3/bin:$PATH"
             fi
         fi
         unset __conda_setup
         # <<< conda initialize <<<
+
 
 
 
