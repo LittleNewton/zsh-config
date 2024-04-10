@@ -35,20 +35,15 @@ if [[ $os_type == "Debian" || $os_type == "TrueNAS_SCALE" ]]; then
     export      tmm="${jellyfin}/tmm"
     export   failed="${mdcx}/failed"
 elif [[ $os_type == "macOS" ]]; then
-    export dapustor="/mnt/DapuStor_R5100_RAID-Z1"
-    export  toshiba="/mnt/Toshiba_MG06S_RAID-Z1"
-    export       wd="/mnt/WD_HC550_RAID-Z1"
-    export  appdata="${dapustor}/app_data"
+    export      doc="/Volumes/Documents"
+    export     soft="/Volumes/Software"
 
-    export      doc="${dapustor}/Documents"
-    export     soft="${dapustor}/Software"
-
-    export download="${toshiba}/Downloads"
+    export download="/Volumes/Downloads/"
     export   xunlei="${download}/Xunlei_Downloads"
     export     qbit="${download}/qBittorrent_Downloads"
     export      byr="${qbit}/byr"
 
-    export    media="${wd}/Media"
+    export    media="/Volumes/Media"
     export    javdb="${media}/db_jellyfin/db_jav"
     export    aavdb="${media}/db_jellyfin/db_aav"
     export    cavdb="${media}/db_jellyfin/db_cav"
