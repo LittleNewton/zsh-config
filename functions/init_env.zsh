@@ -11,28 +11,53 @@ fi
 
 
 # 存储池相关目录
-export dapustor="/mnt/DapuStor_R5100_RAID-Z1"
-export  toshiba="/mnt/Toshiba_MG06S_RAID-Z1"
-export       wd="/mnt/WD_HC550_RAID-Z1"
+if [[ $os_type == "Debian" || $os_type == "TrueNAS_SCALE" ]]; then
+    export dapustor="/mnt/DapuStor_R5100_RAID-Z1"
+    export  toshiba="/mnt/Toshiba_MG06S_RAID-Z1"
+    export       wd="/mnt/WD_HC550_RAID-Z1"
+    export  appdata="${dapustor}/app_data"
 
-export  appdata="${dapustor}/app_data"
-export      doc="${dapustor}/Documents"
-export     soft="${dapustor}/Software"
+    export      doc="${dapustor}/Documents"
+    export     soft="${dapustor}/Software"
 
-export download="${toshiba}/Downloads"
-export   xunlei="${download}/Xunlei_Downloads"
-export     qbit="${download}/qBittorrent_Downloads"
-export      byr="${qbit}/byr"
+    export download="${toshiba}/Downloads"
+    export   xunlei="${download}/Xunlei_Downloads"
+    export     qbit="${download}/qBittorrent_Downloads"
+    export      byr="${qbit}/byr"
 
-export    media="${wd}/Media"
-export    javdb="${media}/db_jellyfin/db_jav"
-export    aavdb="${media}/db_jellyfin/db_aav"
-export    cavdb="${media}/db_jellyfin/db_cav"
+    export    media="${wd}/Media"
+    export    javdb="${media}/db_jellyfin/db_jav"
+    export    aavdb="${media}/db_jellyfin/db_aav"
+    export    cavdb="${media}/db_jellyfin/db_cav"
 
-export jellyfin="${media}/db_jellyfin"
-export     mdcx="${jellyfin}/mdcx"
-export      tmm="${jellyfin}/tmm"
-export   failed="${mdcx}/failed"
+    export jellyfin="${media}/db_jellyfin"
+    export     mdcx="${jellyfin}/mdcx"
+    export      tmm="${jellyfin}/tmm"
+    export   failed="${mdcx}/failed"
+elif [[ $os_type == "macOS" ]]; then
+    export dapustor="/mnt/DapuStor_R5100_RAID-Z1"
+    export  toshiba="/mnt/Toshiba_MG06S_RAID-Z1"
+    export       wd="/mnt/WD_HC550_RAID-Z1"
+    export  appdata="${dapustor}/app_data"
+
+    export      doc="${dapustor}/Documents"
+    export     soft="${dapustor}/Software"
+
+    export download="${toshiba}/Downloads"
+    export   xunlei="${download}/Xunlei_Downloads"
+    export     qbit="${download}/qBittorrent_Downloads"
+    export      byr="${qbit}/byr"
+
+    export    media="${wd}/Media"
+    export    javdb="${media}/db_jellyfin/db_jav"
+    export    aavdb="${media}/db_jellyfin/db_aav"
+    export    cavdb="${media}/db_jellyfin/db_cav"
+
+    export jellyfin="${media}/db_jellyfin"
+    export     mdcx="${jellyfin}/mdcx"
+    export      tmm="${jellyfin}/tmm"
+    export   failed="${mdcx}/failed"
+fi
 
 # 编译 OpenWrt 相关
 if [[ $HOST == "4950-debian" ]]; then
