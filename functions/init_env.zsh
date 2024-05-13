@@ -63,6 +63,9 @@ fi
 if [[ $os_type == "macOS" ]]; then
     export PATH=/Users/newton/bin/nvim/bin:$PATH
     export PATH=/opt/homebrew/bin:$PATH
+
+		# Java related envs.
+		export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 fi
 
 
