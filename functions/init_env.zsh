@@ -56,7 +56,7 @@ fi
 
 # 编译 OpenWrt 相关
 if [[ $HOST == "4950-debian" ]]; then
-	export openwrt="${dapustor}/openwrt-compile/openwrt/"
+    export openwrt="${dapustor}/openwrt-compile/openwrt/"
 fi
 
 # macOS 特殊路径
@@ -64,8 +64,8 @@ if [[ $os_type == "macOS" ]]; then
     export PATH=/Users/newton/bin/nvim/bin:$PATH
     export PATH=/opt/homebrew/bin:$PATH
 
-		# Java related envs.
-		export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+    # Java related envs.
+    export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 fi
 
 
