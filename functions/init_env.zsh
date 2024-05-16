@@ -66,6 +66,10 @@ if [[ $os_type == "macOS" ]]; then
 
     # Java related envs.
     export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+
+    # Arm toolchain
+    export PATH="/Users/newton/bin/arm-none-eabi/bin:$PATH"
+    export PATH="/Users/newton/bin/arm-none-eabi/arm-none-eabi/bin:$PATH"
 fi
 
 
