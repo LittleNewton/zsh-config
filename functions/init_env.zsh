@@ -78,9 +78,15 @@ export   harbor="app-registry.proxy.littlenewton.cn"
 
 
 # Go 语言相关
-export GOPATH="/home/newton/.local/share/go"
-export PATH="$PATH:$GOPATH/bin"
+if [[ $os_type == "Debian" || $os_type == "TrueNAS_SCALE" ]]; then
+    export GOPATH="$HOME/.local/share/go"
+    export PATH="$PATH:$GOPATH/bin"
+fi
 
+# Rust 语言相关
+if [[ $os_type == "Debian" ]]; then
+    source "$HOME/.cargo/env"
+fi
 
 # PATH 相关
 export PATH="$PATH:$HOME/bin"
