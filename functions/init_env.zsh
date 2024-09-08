@@ -80,7 +80,7 @@ export   harbor="app-registry.proxy.littlenewton.cn"
 # Go 语言相关
 if [[ $os_type == "Debian" || $os_type == "TrueNAS_SCALE" ]]; then
     export GOPATH="$HOME/.local/share/go"
-    export PATH="$PATH:$GOPATH/bin"
+    export PATH="$PATH:/usr/local/go/bin"
 fi
 
 # Rust 语言相关
