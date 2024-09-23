@@ -11,6 +11,7 @@ function os-update () {
     print -P "%F{cyan}Step 2/3: Updating Miniconda%f"
     print -P "%F{white}NOTE: Only the base virtual environment will be updated.%f"
     conda activate base
+    conda upgrade python --yes
     conda upgrade -n base --yes --all
 
     # (3) 更新系统包管理器下的软件
