@@ -55,6 +55,8 @@ elif [[ $os_type == "macOS" ]]; then
     export     mdcx="${jellyfin}/mdcx"
     export      tmm="${jellyfin}/tmm"
     export   failed="${mdcx}/failed"
+
+    export       uk="/Volumes/NAS_in_UK/Documents"
 fi
 
 # 编译 OpenWrt 相关
@@ -69,6 +71,7 @@ if [[ $os_type == "macOS" ]]; then
 
     # Java related envs.
     export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+		export JAVA_HOME="/opt/homebrew/opt/openjdk"
 
     # Arm toolchain
     export PATH="/Users/newton/bin/arm-none-eabi/bin:$PATH"
