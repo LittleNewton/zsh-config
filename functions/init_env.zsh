@@ -1,6 +1,9 @@
 # Editor
 export EDITOR='nvim'
 
+# My GitHub
+export github="git@github.com:LittleNewton"
+
 
 # TrueNAS 特殊设置
 if [[ $os_type == "TrueNAS_SCALE" ]]; then
