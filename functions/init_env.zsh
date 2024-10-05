@@ -71,11 +71,16 @@ if [[ $os_type == "macOS" ]]; then
 
     # Java related envs.
     export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
-		export JAVA_HOME="/opt/homebrew/opt/openjdk"
+    export JAVA_HOME="/opt/homebrew/opt/openjdk"
 
     # Arm toolchain
     export PATH="/Users/newton/bin/arm-none-eabi/bin:$PATH"
     export PATH="/Users/newton/bin/arm-none-eabi/arm-none-eabi/bin:$PATH"
+
+    # Ghidra
+    export GHIDRA_VERSION="11.1.2"
+    export GHIDRA="/Users/newton/bin/ghidra/ghidra_${GHIDRA_VERSION}_PUBLIC"
+    export PATH="$GHIDRA/support:$PATH"
 fi
 
 
