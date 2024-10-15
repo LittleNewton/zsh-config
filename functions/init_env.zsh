@@ -99,5 +99,10 @@ if [[ $os_type == "Debian" ]]; then
     source "$HOME/.cargo/env"
 fi
 
+
+if [[ $os_type == "Debian" ]]; then
+    export PATH=$HOME/bin/ghidra/ghidra_11.1.2_PUBLIC/support:$PATH
+fi
+
 # PATH 相关
 export PATH="$PATH:$HOME/bin"
