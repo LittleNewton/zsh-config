@@ -27,3 +27,20 @@ If this is the first time you install zsh environment, you can simply run the fo
 git clone https://github.com/LittleNewton/zsh-config.git ~/.config/zsh
 ```
 If you want to recover your old zsh history, you can `cp ~/.zsh_history ${XDG_CONFIG_HOME/zsh/.zhistory}`
+
+If you are in an docker environment, please run this command first. [Here](https://github.com/deluan/zsh-in-docker) is the reference.
+
+``` zsh
+sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.2.1/zsh-in-docker.sh)"
+git clone https://github.com/LittleNewton/zsh-config.git ~/.config/zsh
+```
+
+## Other utility
+
+``` zsh
+cd $HOME
+git clone https://github.com/LittleNewton/joshuto-config ~/.config/joshuto
+git clone https://github.com/LittleNewton/lazygit-config ~/.config/lazygit
+git clone https://github.com/LittleNewton/tmux-config ~/.config/tmux
+git clone https://github.com/LittleNewton/tmux-powerline-config ~/.config/tmux-powerline
+```
