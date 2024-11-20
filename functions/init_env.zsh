@@ -59,6 +59,10 @@ elif [[ $os_type == "macOS" ]]; then
     export       uk="/Volumes/NAS_in_UK/Documents"
 fi
 
+if [[ $HOST == "gtr7-debian" ]]; then
+    export uk="/mnt/VMware_Data.vmdk_Stripe/uk_storage"
+fi
+
 # 编译 OpenWrt 相关
 if [[ $HOST == "4950-debian" ]]; then
     export openwrt="${dapustor}/openwrt-compile/openwrt/"
@@ -99,9 +103,12 @@ if [[ $os_type == "Debian" ]]; then
     source "$HOME/.cargo/env"
 fi
 
-
+# Ghidra 相关
 if [[ $os_type == "Debian" ]]; then
-    export PATH=$HOME/bin/ghidra/ghidra_11.1.2_PUBLIC/support:$PATH
+    export JAVA_HOME="/usr/lib/jvm/java-17-openjdk-amd64"
+    export GHIDRA_VERSION="11.1.2"
+    export GHIDRA="$HOME/bin/ghidra/ghidra_${GHIDRA_VERSION}_PUBLIC"
+    export PATH="$GHIDRA/support:$PATH"
 fi
 
 # PATH 相关
