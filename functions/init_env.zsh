@@ -56,11 +56,11 @@ elif [[ $os_type == "macOS" ]]; then
     export      tmm="${jellyfin}/tmm"
     export   failed="${mdcx}/failed"
 
-    export       uk="/Volumes/NAS_in_UK/Documents"
+    export       uk="/Volumes/990Pro/Documents"
 fi
 
 if [[ $HOST == "gtr7-debian" ]]; then
-    export uk="/mnt/VMware_Data.vmdk_Stripe/uk_storage"
+    export uk="/mnt/Samsung_990Pro_4TB/uk_storage"
 fi
 
 # 编译 OpenWrt 相关
