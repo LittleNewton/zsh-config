@@ -39,8 +39,10 @@ git clone https://github.com/LittleNewton/zsh-config.git ~/.config/zsh
 
 ``` zsh
 cd $HOME
-git clone https://github.com/LittleNewton/joshuto-config ~/.config/joshuto
-git clone https://github.com/LittleNewton/lazygit-config ~/.config/lazygit
-git clone https://github.com/LittleNewton/tmux-config ~/.config/tmux
-git clone https://github.com/LittleNewton/tmux-powerline-config ~/.config/tmux-powerline
+GITHUB="https://github.com/LittleNewton"
+git clone ${GITHUB}/joshuto-config          ~/.config/joshuto
+git clone ${GITHUB}/lazygit-config          ~/.config/lazygit
+git clone ${GITHUB}/tmux-config             ~/.config/tmux
+git clone ${GITHUB}/tmux-powerline-config   ~/.config/tmux-powerline
+git clone ${GITHUB}/btop-config.git         ~/.config/btop
 ```
