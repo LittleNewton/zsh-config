@@ -41,7 +41,7 @@ elif [[ $os_type == "macOS" ]]; then
     export      doc="/Volumes/Documents"
     export     soft="/Volumes/Software"
 
-    export download="/Volumes/Downloads/"
+    export download="/Volumes/Downloads"
     export   xunlei="${download}/Xunlei_Downloads"
     export     qbit="${download}/qBittorrent_Downloads"
     export      byr="${qbit}/byr"
@@ -60,12 +60,12 @@ elif [[ $os_type == "macOS" ]]; then
 fi
 
 if [[ $HOST == "gtr7-debian" ]]; then
-    export uk="/mnt/Samsung_990Pro_4TB/uk_storage"
+    export uk="/mnt/Samsung_990Pro_Stripe/uk_storage"
 fi
 
 # 编译 OpenWrt 相关
 if [[ $HOST == "4950-debian" ]]; then
-    export openwrt="${dapustor}/openwrt-compile/openwrt/"
+		export openwrt="/mnt/Intel_750_RAID-Z1/openwrt-compile/openwrt"
 fi
 
 # macOS 特殊路径
