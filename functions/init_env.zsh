@@ -23,6 +23,8 @@ if [[ $os_type == "Debian" || $os_type == "TrueNAS_SCALE" ]]; then
     export      doc="${dapustor}/Documents"
     export     soft="${dapustor}/Software"
 
+    export     repo="${dapustor}/git_repo"
+
     export download="${toshiba}/Downloads"
     export   xunlei="${download}/Xunlei_Downloads"
     export     qbit="${download}/qBittorrent_Downloads"
