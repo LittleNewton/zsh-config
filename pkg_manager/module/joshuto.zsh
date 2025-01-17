@@ -18,7 +18,7 @@ function install_joshuto() {
     fi
 
     echo "Extracting Joshuto..."
-    tar -C "/tmp -xzf" "/tmp/${JOSHUTO_COMPRESSED_FILE}"
+    tar -C "/tmp" -xzf "/tmp/${JOSHUTO_COMPRESSED_FILE}"
 
     if [[ $? -ne 0 ]]; then
         echo "Error: Failed to extract Joshuto." >&2
