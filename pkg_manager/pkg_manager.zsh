@@ -44,6 +44,22 @@ function ltnt_install() {
                 return 1
             fi
             ;;
+        all)
+            echo "Installing all available packages in ${module_dir}..."
+            for script in ${module_dir}/*.zsh; do
+                if [[ -f "$script" ]]; then
+                    echo "Sourcing and executing $script..."
+                    source "$script"
+                    script_name=$(basename "$script" .zsh)
+                    install_function="install_${script_name}"
+                    if command -v $install_function >/dev/null 2>&1; then
+                        $install_function
+                    else
+                        echo "Warning: Install function $install_function not found in $script." >&2
+                    fi
+                fi
+            done
+            ;;
         *)
             echo "Error: Unsupported package '$package'." >&2
             return 1

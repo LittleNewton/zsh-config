@@ -37,6 +37,15 @@ function install_lazygit() {
         return 1
     fi
 
+    echo "Setting the owner and permissions of /usr/local/bin/lazygit..."
+    sudo chown root:root /usr/local/bin/lazygit
+    sudo chmod 0755 /usr/local/bin/lazygit
+
+    if [[ ! -x /usr/local/bin/lazygit ]]; then
+        echo "Error: /usr/local/bin/lazygit is not executable. Check permissions." >&2
+        return 1
+    fi
+
     # 4. 清理临时文件
     echo "Cleaning up..."
     rm "/tmp/${LAZYGIT_COMPRESSED_FILE}"

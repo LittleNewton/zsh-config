@@ -33,6 +33,15 @@ function install_joshuto() {
         return 1
     fi
 
+    echo "Setting the owner and permissions of /usr/local/bin/joshuto..."
+    sudo chown root:root /usr/local/bin/joshuto
+    sudo chmod 0755 /usr/local/bin/joshuto
+
+    if [[ ! -x /usr/local/bin/joshuto ]]; then
+        echo "Error: /usr/local/bin/joshuto is not executable. Check permissions." >&2
+        return 1
+    fi
+
     # 4. 清理临时文件
     echo "Cleaning up..."
     rm "/tmp/${JOSHUTO_COMPRESSED_FILE}"

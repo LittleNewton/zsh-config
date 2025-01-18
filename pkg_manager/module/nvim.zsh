@@ -11,15 +11,13 @@ function install_nvim() {
         return 1
     fi
 
-    echo "Checking and setting executable permissions for /usr/local/bin/${NVIM_APPIMAGE}..."
+    echo "Setting the owner and permissions of /usr/local/bin/${NVIM_APPIMAGE}..."
+    sudo chown root:root /usr/local/bin/${NVIM_APPIMAGE}
+    sudo chmod 0755 /usr/local/bin/${NVIM_APPIMAGE}
+
     if [[ ! -x /usr/local/bin/${NVIM_APPIMAGE} ]]; then
-        sudo chmod u+x /usr/local/bin/${NVIM_APPIMAGE}
-        if [[ $? -ne 0 ]]; then
-            echo "Error: Failed to set executable permissions for /usr/local/bin/${NVIM_APPIMAGE}." >&2
-            return 1
-        fi
-    else
-        echo "Permissions are already set correctly for /usr/local/bin/${NVIM_APPIMAGE}."
+        echo "Error: /usr/local/bin/${NVIM_APPIMAGE} is not executable. Check permissions." >&2
+        return 1
     fi
 
     echo "Verifying installation..."
