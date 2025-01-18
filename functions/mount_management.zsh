@@ -19,4 +19,3 @@ unmount_nfs() {
     sudo umount /mnt/WD_HC550_RAID-Z1/Media
     echo "NFS shares unmounted."
 }
-

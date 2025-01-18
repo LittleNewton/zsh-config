@@ -1,6 +1,6 @@
 export is_texlive_installed="false"
 
-function _set_texlive () {
+function _set_texlive() {
     # (1) 判断 texlive 是否已安装
     texlive_folder='/usr/local/texlive/'
     if [ -d ${texlive_folder} ]; then
@@ -27,4 +27,4 @@ function _set_texlive () {
     fi
 }
 
-_set_texlive;
+_set_texlive

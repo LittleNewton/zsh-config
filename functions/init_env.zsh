@@ -9,9 +9,7 @@ export github="git@github.com:LittleNewton"
 if [[ $os_type == "TrueNAS_SCALE" ]]; then
     # 补全 PATH 变量，否则普通 sudo 用户无法使用 zpool 命令
     export PATH=$PATH:/sbin
-    export PATH=$PATH:/mnt/Intel_750_RAID-Z1/newton/bin
 fi
-
 
 # 存储池相关目录
 if [[ $os_type == "Debian" || $os_type == "TrueNAS_SCALE" ]]; then
@@ -68,19 +66,19 @@ fi
 
 # 编译 OpenWrt 相关
 if [[ $HOST == "4950-debian" ]]; then
-		export openwrt="/mnt/Intel_750_RAID-Z1/openwrt-compile/openwrt"
+    export openwrt="/mnt/Intel_750_RAID-Z1/openwrt-compile/openwrt"
 fi
 
 # macOS 特殊路径
 if [[ $os_type == "macOS" ]]; then
-    export PATH=/Users/newton/bin/nvim/bin:$PATH
-    export PATH=/opt/homebrew/bin:$PATH
+    export PATH="/Users/newton/bin/nvim/bin:$PATH"
+    export PATH="/opt/homebrew/bin:$PATH"
 
-    # Java related envs.
+    # Java
     export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
     export JAVA_HOME="/opt/homebrew/opt/openjdk"
 
-    # Arm toolchain
+    # Arm Toolchain
     export PATH="/Users/newton/bin/arm-none-eabi/bin:$PATH"
     export PATH="/Users/newton/bin/arm-none-eabi/arm-none-eabi/bin:$PATH"
 
@@ -92,7 +90,7 @@ fi
 
 
 # 其他相关
-export   harbor="app-registry.proxy.littlenewton.cn"
+export harbor="app-registry.proxy.littlenewton.cn"
 
 
 # Go 语言相关

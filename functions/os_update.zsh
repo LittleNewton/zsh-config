@@ -78,4 +78,3 @@ function os-update () {
             ;;
     esac
 }
-

@@ -1,7 +1,3 @@
-# Python Related
-alias     pip='pip3'
-alias ipython='ipython3'
-
 # List Related
 alias  ll='ls -lFh'
 alias  la='ls -a1'
@@ -18,7 +14,3 @@ alias ip='ip -color'
 
 # Directory Related
 alias dirs='dirs -lpv'
-
-# Python Related
-alias     pip='pip3'
-alias ipython='ipython3'
