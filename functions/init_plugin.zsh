@@ -14,11 +14,12 @@ init_ohmyzsh() {
     else
         # 如果路径不存在，则克隆仓库
         echo "oh-my-zsh is not found. Cloning to ${ohmyzsh_path}..."
-        git clone https://github.com/ohmyzsh/ohmyzsh.git "${ohmyzsh_path}" || {
+        if ! git clone https://github.com/ohmyzsh/ohmyzsh.git "${ohmyzsh_path}"; then
             echo "ERROR: Failed to clone oh-my-zsh."
             return 1
-    }
-    echo "oh-my-zsh has been installed successfully at ${ohmyzsh_path}."
+        fi
+        echo "oh-my-zsh has been installed successfully at ${ohmyzsh_path}."
+    fi
 }
 
 # 调用函数
