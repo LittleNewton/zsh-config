@@ -1,24 +1,28 @@
 init_ohmyzsh() {
-    # Check if `XDG_DATA_HOME` is defined
+    # 定义安装路径
+    local ohmyzsh_path="${XDG_DATA_HOME}/oh-my-zsh"
+
+    # 检查 `XDG_DATA_HOME` 是否定义
     if [[ -z "${XDG_DATA_HOME}" ]]; then
-        echo "ERROR: XDG_DATA_HOME is not defined."
+        echo "ERROR: XDG_DATA_HOME is not defined. Please set it before running this script."
         return 1
     fi
 
-    # check if ${XDG_DATA_HOME}/oh-my-zsh exists
-    if [[ -d "${XDG_DATA_HOME}/oh-my-zsh" ]]; then
+    # 检查目标路径是否存在
+    if [[ -d "${ohmyzsh_path}" ]]; then
         return 0
     else
-        echo "${XDG_DATA_HOME}/oh-my-zsh not exists,"
-        echo "now clone oh-my-zsh to ${XDG_DATA_HOME}/oh-my-zsh."
-        git clone https://github.com/ohmyzsh/ohmyzsh.git "${XDG_DATA_HOME}/oh-my-zsh"
-        echo "clone oh-my-zsh done."
-    fi
+        # 如果路径不存在，则克隆仓库
+        echo "oh-my-zsh is not found. Cloning to ${ohmyzsh_path}..."
+        git clone https://github.com/ohmyzsh/ohmyzsh.git "${ohmyzsh_path}" || {
+            echo "ERROR: Failed to clone oh-my-zsh."
+            return 1
+    }
+    echo "oh-my-zsh has been installed successfully at ${ohmyzsh_path}."
 }
 
-init_ohmyzsh;
-
-
+# 调用函数
+init_ohmyzsh
 
 # Download zimfw plugin manager if missing.
 if [[ ! -e ${ZIM_HOME}/zimfw.zsh ]]; then
@@ -33,13 +37,23 @@ fi
 
 source ${ZIM_HOME}/init.zsh
 
-
 # Bind ^[[A/^[[B manually so up/down works both before and after zle-line-init
 zmodload -F zsh/terminfo +p:terminfo
-for key ('^[[A' '^P' ${terminfo[kcuu1]}) bindkey ${key} history-substring-search-up
-for key ('^[[B' '^N' ${terminfo[kcud1]}) bindkey ${key} history-substring-search-down
-for key ('k') bindkey -M vicmd ${key} history-substring-search-up
-for key ('j') bindkey -M vicmd ${key} history-substring-search-down
+for key in '^[[A' '^P' ${terminfo[kcuu1]}; do
+    bindkey ${key} history-substring-search-up
+done
+
+for key in '^[[B' '^N' ${terminfo[kcud1]}; do
+    bindkey ${key} history-substring-search-down
+done
+
+for key in 'k'; do
+    bindkey -M vicmd ${key} history-substring-search-up
+done
+
+for key in 'j'; do
+    bindkey -M vicmd ${key} history-substring-search-down
+done
 unset key
 
 zstyle ':zim:prompt-pwd:fish-style' dir-length 0
