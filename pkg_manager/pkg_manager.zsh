@@ -35,6 +35,15 @@ function ltnt_install() {
                 return 1
             fi
             ;;
+        neovim)
+            if [[ -f "${module_dir}/nvim.zsh" ]]; then
+                source "${module_dir}/nvim.zsh"
+                install_nvim
+            else
+                echo "Error: nvim installation script not found in ${module_dir}/nvim.zsh" >&2
+                return 1
+            fi
+            ;;
         *)
             echo "Error: Unsupported package '$package'." >&2
             return 1
