@@ -4,6 +4,8 @@ export EDITOR='nvim'
 # My GitHub
 export github="git@github.com:LittleNewton"
 
+# Self-hosted container registry
+export harbor="app-registry.proxy.littlenewton.cn"
 
 # TrueNAS 特殊设置
 if [[ $os_type == "TrueNAS_SCALE" ]]; then
@@ -69,7 +71,7 @@ fi
 
 # macOS 特殊路径
 if [[ $os_type == "macOS" ]]; then
-    export PATH="/Users/newton/bin/nvim/bin:$PATH"
+    export PATH="${HOME}/bin/nvim/bin:$PATH"
     export PATH="/opt/homebrew/bin:$PATH"
 
     # Java
@@ -77,19 +79,14 @@ if [[ $os_type == "macOS" ]]; then
     export JAVA_HOME="/opt/homebrew/opt/openjdk"
 
     # Arm Toolchain
-    export PATH="/Users/newton/bin/arm-none-eabi/bin:$PATH"
-    export PATH="/Users/newton/bin/arm-none-eabi/arm-none-eabi/bin:$PATH"
+    export PATH="${HOME}/bin/arm-none-eabi/bin:$PATH"
+    export PATH="${HOME}/bin/arm-none-eabi/arm-none-eabi/bin:$PATH"
 
     # Ghidra
     export GHIDRA_VERSION="11.1.2"
-    export GHIDRA="/Users/newton/bin/ghidra/ghidra_${GHIDRA_VERSION}_PUBLIC"
+    export GHIDRA="${HOME}/bin/ghidra/ghidra_${GHIDRA_VERSION}_PUBLIC"
     export PATH="$GHIDRA/support:$PATH"
 fi
-
-
-# 其他相关
-export harbor="app-registry.proxy.littlenewton.cn"
-
 
 # Go 语言相关
 if [[ $os_type == "Debian" || $os_type == "TrueNAS_SCALE" ]]; then
@@ -110,5 +107,5 @@ if [[ $os_type == "Debian" ]]; then
     export PATH="$GHIDRA/support:$PATH"
 fi
 
-# PATH 相关
+# $HOME 的可执行文件目录
 export PATH="$PATH:$HOME/bin"
