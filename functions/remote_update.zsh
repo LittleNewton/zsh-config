@@ -6,7 +6,7 @@ ServerInfo=(
     "hostname:z690-debian; ip:10.2.5.21; port:22521"
     "hostname:x1e-debian;  ip:10.2.6.21; port:22621"
     "hostname:x299-debian; ip:10.2.7.21; port:22721"
-    "hostname:gtr7-debian; ip:gtr7-debian; port:22"
+    "hostname:gtr7-debian; ip:10.4.1.21; port:24121"
 )
 
 function remote-exe() {
