@@ -56,12 +56,10 @@ elif [[ $os_type == "macOS" ]]; then
     export     mdcx="${jellyfin}/mdcx"
     export      tmm="${jellyfin}/tmm"
     export   failed="${mdcx}/failed"
-
-    export       uk="/Volumes/990Pro/Documents"
 fi
 
 if [[ $HOST == "gtr7-debian" ]]; then
-    export uk="/mnt/Samsung_990Pro_Stripe/uk_storage"
+    export uk="/mnt/Samsung_990Pro_Stripe"
 fi
 
 # 编译 OpenWrt 相关
