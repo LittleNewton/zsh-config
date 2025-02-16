@@ -1,7 +1,9 @@
 function install_nvim() {
     local NVIM_VERSION="stable"
     local NVIM_APPIMAGE="nvim.appimage"
-    local NVIM_DOWNLOAD_URL="https://github.com/neovim/neovim/releases/download/${NVIM_VERSION}/${NVIM_APPIMAGE}"
+    local OS="linux"
+    local ARCH=$(uname -m)
+    local NVIM_DOWNLOAD_URL="https://github.com/neovim/neovim/releases/download/${NVIM_VERSION}/nvim-${OS}-${ARCH}.appimage"
 
     echo "Downloading Neovim (${NVIM_VERSION}) directly to /usr/local/bin..."
     sudo curl -Lo /usr/local/bin/${NVIM_APPIMAGE} "$NVIM_DOWNLOAD_URL"
