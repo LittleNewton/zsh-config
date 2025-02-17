@@ -86,6 +86,9 @@ if [[ $os_type == "macOS" ]]; then
     export GHIDRA_VERSION="11.1.2"
     export GHIDRA="${HOME}/bin/ghidra/ghidra_${GHIDRA_VERSION}_PUBLIC"
     export PATH="$GHIDRA/support:$PATH"
+
+		# mtr
+		export PATH="/opt/homebrew/Cellar/mtr/0.95/sbin/:$PATH"
 fi
 
 # Go 语言相关
