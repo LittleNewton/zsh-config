@@ -32,7 +32,16 @@ If this is the first time you are installing the zsh environment, you can simply
 ``` zsh
 git clone https://github.com/LittleNewton/zsh-config.git ~/.config/zsh
 ```
-If you want to recover your old zsh history, you can `cp ~/.zsh_history ${XDG_CONFIG_HOME/zsh/.zhistory}`
+
+If you want to recover your old zsh history, you should `cp ~/.zsh_history ${XDG_CONFIG_HOME/zsh/.zhistory}`
+
+### SSH config
+
+`remote-exe` command needs a well defined `~/.ssh/config`. An example, customized for myself, is provided in [`config/ssh_entries`](/config/ssh_entries). This command should work great with my workflow.
+
+``` bash
+cp ~/.config/zsh/config/ssh_entries ~/.ssh/config
+```
 
 ### Docker Environment
 
