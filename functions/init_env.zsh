@@ -5,7 +5,7 @@ export EDITOR='nvim'
 export github="git@github.com:LittleNewton"
 
 # Self-hosted container registry
-export harbor="app-registry.proxy.littlenewton.cn"
+export harbor="app-registry.littlenewton.cn"
 
 # TrueNAS 特殊设置
 if [[ $os_type == "TrueNAS_SCALE" ]]; then
