@@ -1,0 +1,88 @@
+Host github.com
+    Hostname ssh.github.com
+    Port 443
+    User git
+
+Host 5820-debian
+    HostName 5820-debian
+    User newton
+    Port 21221
+    Compression yes
+
+Host h12-truenas
+    HostName h12-truenas
+    User newton
+    Port 22133
+    Compression yes
+
+Host 4950-debian
+    HostName 4950-debian
+    User newton
+    Port 22221
+    Compression yes
+
+Host r740-debian
+    hostName r740-debian
+    User newton
+    Port 22421
+    Compression yes
+
+Host z690-debian
+    HostName z690-debian
+    User newton
+    Port 22521
+    Compression yes
+
+Host x1e-debian
+    HostName x1e-debian
+    User newton
+    Port 22621
+    Compression yes
+
+Host x299-debian
+    HostName x299-debian
+    User newton
+    Port 22721
+    Compression yes
+
+Host gtr7-debian
+    HostName gtr7-debian
+    User newton
+    Port 24121
+    Compression yes
+
+Host fra-debian
+    HostName fra-debian
+    User newton
+    Port 25110
+    Compression yes
+
+Host cisco-switch
+    HostName 10.2.0.90
+    User admin
+    Port 22
+    Compression yes
+
+Host home-openwrt
+    HostName home-openwrt
+    User root
+    Port 21110
+    Compression yes
+
+Host lab-openwrt
+    HostName lab-openwrt
+    User root
+    Port 22210
+    Compression yes
+
+Host dorm-openwrt
+    HostName dorm-openwrt
+    User root
+    Port 23110
+    Compression yes
+
+Host bham-openwrt
+    HostName bham-openwrt
+    User root
+    Port 24110
+    Compression yes
