@@ -18,11 +18,17 @@ if [[ $os_type == "Debian" || $os_type == "TrueNAS_SCALE" ]]; then
     export dapustor="/mnt/DapuStor_R5100_RAID-Z1"
     export  toshiba="/mnt/Toshiba_MG06S_RAID-Z1"
     export       wd="/mnt/WD_HC550_RAID-Z1"
-    export  appdata="${dapustor}/app_data"
+    export      cd2="/mnt/CloudDrive"
 
+    export   pan115="${cd2}/115"
+    export panbaidu="${cd2}/baidudrive"
+    export   panali="${cd2}/aliyundrive"
+
+    export    mdcxo="${pan115}/db_jellyfin/mdcx"
+
+    export  appdata="${dapustor}/app_data"
     export      doc="${dapustor}/Documents"
     export     soft="${dapustor}/Software"
-
     export     repo="${dapustor}/git_repo"
 
     export     bins="${soft}/software_linux/bins"
