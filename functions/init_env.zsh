@@ -20,16 +20,51 @@ if [[ $os_type == "Debian" || $os_type == "TrueNAS_SCALE" ]]; then
     export       wd="/mnt/WD_HC550_RAID-Z1"
     export      cd2="/mnt/CloudDrive"
 
-    export   pan115="${cd2}/115"
-    export panbaidu="${cd2}/baidudrive"
-    export   panali="${cd2}/aliyundrive"
-
-    export    mdcxo="${pan115}/db_jellyfin/mdcx"
-
     export  appdata="${dapustor}/app_data"
     export      doc="${dapustor}/Documents"
     export     soft="${dapustor}/Software"
     export     repo="${dapustor}/git_repo"
+
+    export   pan115="${cd2}/115"
+    export panbaidu="${cd2}/baidudrive"
+    export   panali="${cd2}/aliyundrive"
+
+    # Netdisk media storage, o:online
+    export   jellyo="${pan115}/db_jellyfin"
+    export    mdcxo="${jellyo}/mdcx"
+    export  failedo="${mdcxo}/failed"
+    export     tmmo="${jellyo}/tmm"
+    export   javdbo="${jellyo}/db_jav"
+    export   aavdbo="${jellyo}/db_aav"
+    export   cavdbo="${jellyo}/db_cav"
+    export moviedbo="${jellyo}/db_movie"
+    export    tvdbo="${jellyo}/db_tv_series"
+    export  favodbo="${jellyo}/db_favorite"
+
+    # Local media storage, l:local
+    export    media="${wd}/Media"
+    export   jellyl="${media}/db_jellyfin"
+    export    mdcxl="${jellyl}/mdcx"
+    export  failedl="${mdcxl}/failed"
+    export     tmml="${jellyl}/tmm"
+    export   javdbl="${jellyl}/db_jav"
+    export   aavdbl="${jellyl}/db_aav"
+    export   cavdbl="${jellyl}/db_cav"
+    export moviedbl="${jellyl}/db_movie"
+    export    tvdbl="${jellyl}/db_tv_series"
+    export  favodbl="${jellyl}/db_favorite"
+
+    # Jellyfin database
+    export    jelly="${doc}/AppData/db_Jellyfin"
+    export     mdcx="${doc}/mdcx"
+    export   failed="${mdcx}/failed"
+    export      tmm="${doc}/tmm"
+    export    javdb="${jelly}/db_jav"
+    export    aavdb="${jelly}/db_aav"
+    export    cavdb="${jelly}/db_cav"
+    export  moviedb="${jelly}/db_movie"
+    export     tvdb="${jelly}/db_tv_series"
+    export   favodb="${jelly}/db_favorite"
 
     export     bins="${soft}/software_linux/bins"
     export download="${toshiba}/Downloads"
@@ -37,15 +72,6 @@ if [[ $os_type == "Debian" || $os_type == "TrueNAS_SCALE" ]]; then
     export     qbit="${download}/qBittorrent_Downloads"
     export      byr="${qbit}/byr"
 
-    export    media="${wd}/Media"
-    export    javdb="${media}/db_jellyfin/db_jav"
-    export    aavdb="${media}/db_jellyfin/db_aav"
-    export    cavdb="${media}/db_jellyfin/db_cav"
-
-    export jellyfin="${media}/db_jellyfin"
-    export     mdcx="${jellyfin}/mdcx"
-    export      tmm="${jellyfin}/tmm"
-    export   failed="${mdcx}/failed"
 elif [[ $os_type == "macOS" ]]; then
     export      doc="/Volumes/Documents"
     export     soft="/Volumes/Software"
@@ -77,7 +103,10 @@ fi
 
 # macOS 特殊路径
 if [[ $os_type == "macOS" ]]; then
+    # NeoVim
     export PATH="${HOME}/bin/nvim/bin:$PATH"
+
+    # Homebrew binary
     export PATH="/opt/homebrew/bin:$PATH"
 
     # Java
@@ -93,8 +122,8 @@ if [[ $os_type == "macOS" ]]; then
     export GHIDRA="${HOME}/bin/ghidra/ghidra_${GHIDRA_VERSION}_PUBLIC"
     export PATH="$GHIDRA/support:$PATH"
 
-		# mtr
-		export PATH="/opt/homebrew/Cellar/mtr/0.95/sbin/:$PATH"
+    # mtr
+    export PATH="/opt/homebrew/Cellar/mtr/0.95/sbin/:$PATH"
 fi
 
 # Go 语言相关
