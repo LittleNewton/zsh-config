@@ -31,9 +31,9 @@ if [[ $os_type == "Debian" || $os_type == "TrueNAS_SCALE" ]]; then
 
     # Netdisk media storage, o:online
     export   jellyo="${pan115}/db_jellyfin"
-    export    mdcxo="${jellyo}/mdcx"
+    export    mdcxo="${pan115}/mdcx"
     export  failedo="${mdcxo}/failed"
-    export     tmmo="${jellyo}/tmm"
+    export     tmmo="${pan115}/tmm"
     export   javdbo="${jellyo}/db_jav"
     export   aavdbo="${jellyo}/db_aav"
     export   cavdbo="${jellyo}/db_cav"
