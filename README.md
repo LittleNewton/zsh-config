@@ -52,6 +52,35 @@ sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.2
 rm -fr ${HOME}/.config/zsh && git clone https://github.com/LittleNewton/zsh-config.git ~/.config/zsh
 ```
 
+### Automatic completion
+
+正常情况下无需手动执行该命令。
+
+如果修改了 `ltnt_install` 函数的内容，或者想要手动添加补全功能，可以执行以下命令：
+
+```
+tee "$HOME/.config/zsh/completion/_ltnt_install" > /dev/null << 'EOF'
+# 自动补全函数
+function _ltnt_install_completion() {
+    local cur_word supported_packages
+    cur_word="$words[2]"
+    supported_packages=(
+        "all"
+        "joshuto"
+        "lazygit"
+        "neovim"
+        "yazi"
+    )
+
+    # 生成补全列表
+    compadd -- "${supported_packages[@]}"
+}
+
+# 绑定补全函数到 ltnt_install
+compdef _ltnt_install_completion ltnt_install
+EOF
+```
+
 ## Other utility
 
 ``` zsh

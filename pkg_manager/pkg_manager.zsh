@@ -1,11 +1,11 @@
 function ltnt_install() {
 
-    # 检查是否在支持的系统上运行
+    # Check if os_type is defined
     if [[ -z "$os_type" ]]; then
         echo "Error: os_type is not defined. Please set it before running this script." >&2
         return 1
     fi
-    # 获取当前脚本所在的绝对路径
+    # Get the directory of the current script
     local module_dir=$(dirname $(realpath ${(%):-%x}))/module
 
     if [[ $os_type == "Debian" || $os_type == "TrueNAS_SCALE" ]]; then
@@ -41,6 +41,15 @@ function ltnt_install() {
                 install_nvim
             else
                 echo "Error: nvim installation script not found in ${module_dir}/nvim.zsh" >&2
+                return 1
+            fi
+            ;;
+        yazi)
+            if [[ -f "${module_dir}/yazi.zsh" ]]; then
+                source "${module_dir}/yazi.zsh"
+                install_yazi
+            else
+                echo "Error: yazi installation script not found in ${module_dir}/yazi.zsh" >&2
                 return 1
             fi
             ;;
