@@ -32,6 +32,7 @@ function os-update () {
                     "sudo apt-get dist-upgrade"
                     "sudo apt-get -y autoremove"
                     "sudo apt-get -y autoclean"
+                    "sudo apt-get -y clean"
                 )
 
                 for cmd in "${cmds[@]}"; do
@@ -54,6 +55,7 @@ function os-update () {
                     "sudo apt-get dist-upgrade"
                     "sudo apt-get -y autoremove"
                     "sudo apt-get -y autoclean"
+                    "sudo apt-get -y clean"
                 )
 
                 for cmd in "${cmds[@]}"; do
