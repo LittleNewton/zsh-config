@@ -24,6 +24,7 @@ if [[ $os_type == "Debian" || $os_type == "TrueNAS_SCALE" ]]; then
     export      doc="${dapustor}/Documents"
     export     soft="${dapustor}/Software"
     export     repo="${dapustor}/git_repo"
+    export     mdcx="${dapustor}/mdcx"
 
     export   pan115="${cd2}/115"
     export panbaidu="${cd2}/baidudrive"
@@ -56,7 +57,6 @@ if [[ $os_type == "Debian" || $os_type == "TrueNAS_SCALE" ]]; then
 
     # Jellyfin database
     export    jelly="${doc}/AppData/db_Jellyfin"
-    export     mdcx="${doc}/mdcx"
     export   failed="${mdcx}/failed"
     export      tmm="${doc}/tmm"
     export    javdb="${jelly}/db_jav"
