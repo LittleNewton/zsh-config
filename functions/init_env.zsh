@@ -75,6 +75,12 @@ if [[ $os_type == "Debian" || $os_type == "TrueNAS_SCALE" ]]; then
 elif [[ $os_type == "macOS" ]]; then
     export      doc="/Volumes/Documents"
     export     soft="/Volumes/Software"
+    export      cd2="${HOME}/CloudDrive"
+
+    export   pan115="${cd2}/115"
+    export panbaidu="${cd2}/baidudrive"
+    export   panali="${cd2}/aliyundrive"
+
 
     export download="/Volumes/Downloads"
     export   xunlei="${download}/Xunlei_Downloads"
@@ -146,4 +152,4 @@ if [[ $os_type == "Debian" ]]; then
 fi
 
 # $HOME 的可执行文件目录
-export PATH="$PATH:$HOME/bin"
+export PATH="$HOME/bin:$PATH"
