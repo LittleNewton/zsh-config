@@ -1,28 +1,27 @@
-export is_texlive_installed="false"
+export IS_TEXLIVE_INSTALLED="false"
 
 function _set_texlive() {
-    # (1) 判断 texlive 是否已安装
-    texlive_folder='/usr/local/texlive/'
-    if [ -d ${texlive_folder} ]; then
-        max_texlive_version=`ls -1 -r ${texlive_folder} | grep -E '20*' | head -n 1`
-        if [[ -n ${max_texlive_version} ]]; then
+    local texlive_folder="/usr/local/texlive"
 
-            # A. 更改环境变量
-            is_texlive_installed="true"
+    if [[ -d "$texlive_folder" ]]; then
+        local MAX_TEXLIVE_VERSION
+        MAX_TEXLIVE_VERSION=$(
+            find "$texlive_folder" -mindepth 1 -maxdepth 1 -type d -printf '%f\n' | grep -E '^20[0-9]{2}$' | sort -r | head -n1
+        )
 
-            # B. 设置操作系统对应的环境变量
-            if [[ $os_type == "macOS" ]]; then
-                export MANPATH=/usr/local/texlive/${max_texlive_version}/texmf-dist/doc/man:${MANPATH}
-                export INFOPATH=/usr/local/texlive/${max_texlive_version}/texmf-dist/doc/info:${INFOPATH}
-                export PATH=/usr/local/texlive/${max_texlive_version}/bin/universal-darwin:${PATH}
-            elif [[ $os_type == "Linux" ]]; then
-                export MANPATH=/usr/local/texlive/${max_texlive_version}/texmf-dist/doc/man:${MANPATH}
-                export INFOPATH=/usr/local/texlive/${max_texlive_version}/texmf-dist/doc/info:${INFOPATH}
-                export PATH=/usr/local/texlive/${max_texlive_version}/bin/x86_64-linux:${PATH}
-            else
-                # 抛出异常，等待日后处理此类系统类型
-                echo "系统类型无法识别"
-            fi
+        if [[ -n "$MAX_TEXLIVE_VERSION" ]]; then
+            IS_TEXLIVE_INSTALLED="true"
+
+            local BIN_DIR=""
+            case "$os_type" in
+                macOS)  BIN_DIR="universal-darwin" ;;
+                Debian) BIN_DIR="x86_64-linux" ;;
+                *) echo "系统类型无法识别: $os_type"; return 1 ;;
+            esac
+
+            export MANPATH="$texlive_folder/$MAX_TEXLIVE_VERSION/texmf-dist/doc/man:$MANPATH"
+            export INFOPATH="$texlive_folder/$MAX_TEXLIVE_VERSION/texmf-dist/doc/info:$INFOPATH"
+            export PATH="$texlive_folder/$MAX_TEXLIVE_VERSION/bin/$BIN_DIR:$PATH"
         fi
     fi
 }
