@@ -20,12 +20,18 @@ if [[ $os_type == "Debian" || $os_type == "TrueNAS_SCALE" ]]; then
     export       wd="/mnt/WD_HC550_RAID-Z1"
     export      cd2="/mnt/CloudDrive"
 
-    export  appdata="${dapustor}/app_data"
+    export  app_data="${dapustor}/app_data"  # To be deprecated
+    export  appdata="${dapustor}/AppData"
     export      doc="${dapustor}/Documents"
     export     soft="${dapustor}/Software"
     export     repo="${dapustor}/git_repo"
-    export     mdcx="${dapustor}/mdcx"
 
+    # Media management, only for db_jav
+    export     mdcx="${dapustor}/mdcx"
+    export   failed="${mdcx}/failed"
+    export      tmm="${doc}/tmm"
+
+    # CloudDrive mount points
     export   pan115="${cd2}/115"
     export panbaidu="${cd2}/baidudrive"
     export   panali="${cd2}/aliyundrive"
@@ -56,16 +62,16 @@ if [[ $os_type == "Debian" || $os_type == "TrueNAS_SCALE" ]]; then
     export  favodbl="${jellyl}/db_favorite"
 
     # Jellyfin database
-    export    jelly="${doc}/AppData/db_Jellyfin"
-    export   failed="${mdcx}/failed"
-    export      tmm="${doc}/tmm"
-    export    javdb="${jelly}/db_jav"
-    export    aavdb="${jelly}/db_aav"
-    export    cavdb="${jelly}/db_cav"
-    export  moviedb="${jelly}/db_movie"
-    export     tvdb="${jelly}/db_tv_series"
-    export   favodb="${jelly}/db_favorite"
+    export    jelly="${appdata}/Jellyfin"
+    export   jmedia="${jelly}/media"
+    export    javdb="${jmedia}/db_jav"
+    export    aavdb="${jmedia}/db_aav"
+    export    cavdb="${jmedia}/db_cav"
+    export  moviedb="${jmedia}/db_movie"
+    export     tvdb="${jmedia}/db_tv_series"
+    export   favodb="${jmedia}/db_favorite"
 
+    # Other useful directories
     export     bins="${soft}/software_linux/bins"
     export download="${toshiba}/Downloads"
     export   xunlei="${download}/Xunlei_Downloads"
