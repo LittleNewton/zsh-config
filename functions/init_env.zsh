@@ -20,16 +20,15 @@ if [[ $os_type == "Debian" || $os_type == "TrueNAS_SCALE" ]]; then
     export       wd="/mnt/WD_HC550_RAID-Z1"
     export      cd2="/mnt/CloudDrive"
 
-    export  app_data="${dapustor}/app_data"  # To be deprecated
     export  appdata="${dapustor}/AppData"
     export      doc="${dapustor}/Documents"
+    export     repo="${dapustor}/Develop"
     export     soft="${dapustor}/Software"
-    export     repo="${dapustor}/git_repo"
 
     # Media management, only for db_jav
-    export     mdcx="${dapustor}/mdcx"
+    export     mdcx="${doc}/mdcx"
     export   failed="${mdcx}/failed"
-    export      tmm="${doc}/tmm"
+    export      tmm="${doc}/tmm" # tinyMediaManager, to be modified
 
     # CloudDrive mount points
     export   pan115="${cd2}/115"
