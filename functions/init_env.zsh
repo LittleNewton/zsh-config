@@ -23,7 +23,9 @@ if [[ $os_type == "Debian" || $os_type == "TrueNAS_SCALE" ]]; then
     export  appdata="${dapustor}/AppData"
     export      doc="${dapustor}/Documents"
     export     repo="${dapustor}/Develop"
-    export     soft="${dapustor}/Software"
+
+    # Software installers
+    export     soft="${doc}/installer"
 
     # Media management, only for db_jav
     export     mdcx="${doc}/mdcx"
@@ -79,7 +81,7 @@ if [[ $os_type == "Debian" || $os_type == "TrueNAS_SCALE" ]]; then
 
 elif [[ $os_type == "macOS" ]]; then
     export      doc="/Volumes/Documents"
-    export     soft="/Volumes/Software"
+    export     soft="${doc}/installer"
     export      cd2="${HOME}/CloudDrive"
 
     export   pan115="${cd2}/115"
