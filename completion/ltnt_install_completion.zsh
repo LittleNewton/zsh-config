@@ -7,7 +7,7 @@ function _ltnt_install_completion() {
         "joshuto"
         "lazygit"
         "neovim"
-				"yazi"
+        "yazi"
     )
 
     # 生成补全列表
