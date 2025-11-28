@@ -29,3 +29,10 @@ source ${XDG_CONFIG_HOME}/zsh/pkg_manager/pkg_manager.zsh
 source ${XDG_CONFIG_HOME}/zsh/completion/ltnt_install_completion.zsh
 # source ${XDG_CONFIG_HOME}/zsh/completion/kubeadm_auto_completion.sh
 # source ${XDG_CONFIG_HOME}/zsh/completion/kubectl_auto_completion.sh
+
+# Node.js 相关
+if [[ $os_type == "Debian" || $os_type == "TrueNAS_SCALE" ]]; then
+    export NVM_DIR="$HOME/.config/nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+fi

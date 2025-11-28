@@ -158,12 +158,5 @@ if [[ $os_type == "Debian" ]]; then
     export PATH="$GHIDRA/support:$PATH"
 fi
 
-# Node.js 相关
-if [[ $os_type == "Debian" || $os_type == "TrueNAS_SCALE" ]]; then
-    export NVM_DIR="$HOME/.config/nvm"
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-fi
-
 # $HOME 的可执行文件目录
 export PATH="$HOME/bin:$PATH"
