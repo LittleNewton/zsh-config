@@ -6,7 +6,7 @@ function _set_texlive() {
     if [[ -d "$texlive_folder" ]]; then
         local MAX_TEXLIVE_VERSION
         MAX_TEXLIVE_VERSION=$(
-            find "$texlive_folder" -mindepth 1 -maxdepth 1 -type d -printf '%f\n' | grep -E '^20[0-9]{2}$' | sort -r | head -n1
+            find "$texlive_folder" -mindepth 1 -maxdepth 1 -type d | while read -r d; do basename "$d"; done | grep -E '^20[0-9]{2}$' | sort -r | head -n1
         )
 
         if [[ -n "$MAX_TEXLIVE_VERSION" ]]; then

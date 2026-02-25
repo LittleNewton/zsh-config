@@ -1,9 +1,9 @@
 function os-update () {
     # (1) 更新 TeX Live
     print -P "%F{cyan}Step 1/4: tlmgr update%f"
-    if [[ $is_texlive_installed == "true" ]]; then
+    if [[ $IS_TEXLIVE_INSTALLED == "true" ]]; then
         sudo tlmgr update --self --all
-    elif [[ $is_texlive_installed == "false" ]]; then
+    elif [[ $IS_TEXLIVE_INSTALLED == "false" ]]; then
         print -P "%F{white}INFO: No installation of texlive was detected, please check it%f"
     fi
 
