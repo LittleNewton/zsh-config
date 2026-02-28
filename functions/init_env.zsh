@@ -73,7 +73,7 @@ if [[ $os_type == "Debian" || $os_type == "TrueNAS_SCALE" ]]; then
     export   favodb="${videodb}/db_favorite"
     export   gamedb="${videodb}/db_game"
     export   livedb="${videodb}/db_live"
-    export    outdb="${videodb}/db_studio"
+    export    outdb="${videodb}/db_cinema"
     export    devdb="${videodb}/via_devices"
 
     # Jellyfin database, metadata/strm files only
