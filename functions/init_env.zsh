@@ -26,11 +26,12 @@ if [[ $os_type == "Debian" || $os_type == "TrueNAS_SCALE" ]]; then
     export      doc="${dapustor}/Documents"
     export     repo="${dapustor}/Develop"
     export     soft="${doc}/installer"
+    export     work="${dapustor}/Work"
 
     # Media management, only for MDCx and tinyMediaManager
-    export     mdcx="${doc}/mdcx"
+    export     mdcx="${work}/mdcx"
     export   failed="${mdcx}/failed"
-    export      tmm="${doc}/tmm"
+    export      tmm="${work}/tmm"
 
     # CloudDrive mount points
     export   pan115="${cd2}/115"
