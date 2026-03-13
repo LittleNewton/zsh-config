@@ -29,7 +29,7 @@ set_mamba() {
             fi
             unset __mamba_setup
             # <<< mamba initialize <<<
-            if micromamba env list 2>/dev/null | grep -q "^${DEFAULT_MAMBA_ENV}"; then
+            if micromamba env list 2>/dev/null | grep -q "^  ${DEFAULT_MAMBA_ENV}"; then
                 micromamba activate ${DEFAULT_MAMBA_ENV}
             fi
     elif [[ " ${unsupported_os[@]} " =~ " ${os_type} " ]]; then
