@@ -13,6 +13,7 @@ function os-update () {
     conda activate base
     conda upgrade python --yes
     conda upgrade -n base --yes --all
+    conda clean --all --yes
 
     # (3) 更新 nvm 和 Node.js
     print -P "%F{cyan}Step 3/4: Updating NVM and Node.js%f"
@@ -67,33 +68,12 @@ function os-update () {
             print -P "%F{cyan}Step 4/4: Updating macOS Homebrew%f"
             brew update
             brew upgrade
+            brew cleanup
+            brew autoremove
             ;;
-        Ubuntu)
+        Ubuntu|Debian)
             if command -v apt-get >/dev/null 2>&1; then
-                print -P "%F{cyan}Step 4/4: Updating Ubuntu%f"
-
-                cmds=(
-                    "sudo apt-get update"
-                    "sudo apt-get upgrade --just-print"
-                    "sudo apt-get upgrade"
-                    "sudo apt-get dist-upgrade"
-                    "sudo apt-get -y autoremove"
-                    "sudo apt-get -y autoclean"
-                    "sudo apt-get -y clean"
-                )
-
-                for cmd in "${cmds[@]}"; do
-                    echo
-                    print -P "%F{yellow}> $cmd%f"
-                    eval $cmd
-                done
-            else
-                print -P "%F{red}ERROR: System package manager not supported.%f"
-            fi
-            ;;
-        Debian)
-            if command -v apt-get >/dev/null 2>&1; then
-                print -P "%F{cyan}Step 4/4: Updating Debian%f"
+                print -P "%F{cyan}Step 4/4: Updating $os_type%f"
 
                 cmds=(
                     "sudo apt-get update"
@@ -116,8 +96,10 @@ function os-update () {
             ;;
         RedHat)
             if command -v yum >/dev/null 2>&1; then
-                echo $fg[cyan]Step 4/4: Updating RedHat$reset_color
-                sudo yum update
+                print -P "%F{cyan}Step 4/4: Updating RedHat%f"
+                sudo yum update -y
+                sudo yum autoremove -y
+                sudo yum clean all
             else
                 print -P "%F{red}ERROR: System package manager not supported.%f"
             fi
