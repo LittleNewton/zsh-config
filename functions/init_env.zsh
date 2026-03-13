@@ -145,9 +145,6 @@ if [[ $os_type == "macOS" ]]; then
     # LM Studio
     export PATH="$PATH:/Users/newton/.lmstudio/bin"
 
-    # Another bin
-    export PATH="$HOME/.local/bin:$PATH"
-
     # Antigravity
     export PATH="/Users/newton/.antigravity/antigravity/bin:$PATH"
 
@@ -168,10 +165,10 @@ fi
 # Ghidra 相关
 if [[ $os_type == "Debian" ]]; then
     export JAVA_HOME="/usr/lib/jvm/java-17-openjdk-amd64"
-    export GHIDRA_VERSION="11.1.2"
-    export GHIDRA="$HOME/bin/ghidra/ghidra_${GHIDRA_VERSION}_PUBLIC"
+    export GHIDRA_VERSION="12.0.4"
+    export GHIDRA="${HOME}/.local/opt/ghidra_${GHIDRA_VERSION}_PUBLIC"
     export PATH="$GHIDRA/support:$PATH"
 fi
 
-# $HOME 的可执行文件目录
-export PATH="$HOME/bin:$PATH"
+# Another bin
+export PATH="$HOME/.local/bin:$PATH"
