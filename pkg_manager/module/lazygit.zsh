@@ -1,4 +1,6 @@
 function install_lazygit() {
+    local INSTALL_DIR="${1:-/usr/local/bin}"
+
     # 1. 获取最新版本号
     local LAZYGIT_VERSION
     LAZYGIT_VERSION=$(curl -s https://api.github.com/repos/jesseduffield/lazygit/tags | jq -r '.[].name' | sort -rV | head -n 1)
@@ -29,20 +31,24 @@ function install_lazygit() {
         return 1
     fi
 
-    echo "Installing Lazygit..."
-    sudo mv "/tmp/${LAZYGIT_FOLDER}/lazygit" "/usr/local/bin"
+    echo "Installing Lazygit to ${INSTALL_DIR}..."
+    mkdir -p "$INSTALL_DIR"
+    if [[ "$INSTALL_DIR" == /usr/local/bin ]]; then
+        sudo mv "/tmp/${LAZYGIT_FOLDER}/lazygit" "${INSTALL_DIR}"
+        sudo chown root:root "${INSTALL_DIR}/lazygit"
+        sudo chmod 0755 "${INSTALL_DIR}/lazygit"
+    else
+        mv "/tmp/${LAZYGIT_FOLDER}/lazygit" "${INSTALL_DIR}"
+        chmod 0755 "${INSTALL_DIR}/lazygit"
+    fi
 
     if [[ $? -ne 0 ]]; then
         echo "Error: Failed to move lazygit binary." >&2
         return 1
     fi
 
-    echo "Setting the owner and permissions of /usr/local/bin/lazygit..."
-    sudo chown root:root /usr/local/bin/lazygit
-    sudo chmod 0755 /usr/local/bin/lazygit
-
-    if [[ ! -x /usr/local/bin/lazygit ]]; then
-        echo "Error: /usr/local/bin/lazygit is not executable. Check permissions." >&2
+    if [[ ! -x "${INSTALL_DIR}/lazygit" ]]; then
+        echo "Error: ${INSTALL_DIR}/lazygit is not executable. Check permissions." >&2
         return 1
     fi
 
@@ -53,7 +59,7 @@ function install_lazygit() {
 
     # 5. 验证安装
     echo "Verifying installation..."
-    /usr/local/bin/lazygit -v
+    "${INSTALL_DIR}/lazygit" -v
 
     if [[ $? -eq 0 ]]; then
         echo "Lazygit installed successfully."

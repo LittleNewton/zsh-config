@@ -1,4 +1,6 @@
 function install_joshuto() {
+    local INSTALL_DIR="${1:-/usr/local/bin}"
+
     # 1. 获取最新版本号
     local JOSHUTO_VERSION
     JOSHUTO_VERSION=$(curl -s https://api.github.com/repos/kamiyaa/joshuto/tags | jq -r '.[].name' | sort -rV | head -n 1)
@@ -25,20 +27,24 @@ function install_joshuto() {
         return 1
     fi
 
-    echo "Installing Joshuto..."
-    sudo mv "/tmp/${JOSHUTO_FOLDER}/joshuto" /usr/local/bin
+    echo "Installing Joshuto to ${INSTALL_DIR}..."
+    mkdir -p "$INSTALL_DIR"
+    if [[ "$INSTALL_DIR" == /usr/local/bin ]]; then
+        sudo mv "/tmp/${JOSHUTO_FOLDER}/joshuto" "${INSTALL_DIR}"
+        sudo chown root:root "${INSTALL_DIR}/joshuto"
+        sudo chmod 0755 "${INSTALL_DIR}/joshuto"
+    else
+        mv "/tmp/${JOSHUTO_FOLDER}/joshuto" "${INSTALL_DIR}"
+        chmod 0755 "${INSTALL_DIR}/joshuto"
+    fi
 
     if [[ $? -ne 0 ]]; then
         echo "Error: Failed to move Joshuto binary." >&2
         return 1
     fi
 
-    echo "Setting the owner and permissions of /usr/local/bin/joshuto..."
-    sudo chown root:root /usr/local/bin/joshuto
-    sudo chmod 0755 /usr/local/bin/joshuto
-
-    if [[ ! -x /usr/local/bin/joshuto ]]; then
-        echo "Error: /usr/local/bin/joshuto is not executable. Check permissions." >&2
+    if [[ ! -x "${INSTALL_DIR}/joshuto" ]]; then
+        echo "Error: ${INSTALL_DIR}/joshuto is not executable. Check permissions." >&2
         return 1
     fi
 
@@ -49,7 +55,7 @@ function install_joshuto() {
 
     # 5. 验证安装
     echo "Verifying installation..."
-    /usr/local/bin/joshuto version
+    "${INSTALL_DIR}/joshuto" version
 
     if [[ $? -eq 0 ]]; then
         echo "Joshuto installed successfully."

@@ -1,4 +1,5 @@
 function install_yazi() {
+    local INSTALL_DIR="${1:-/usr/local/bin}"
 
     # 1. Get the latest version number
     local YAZI_VERSION
@@ -30,23 +31,26 @@ function install_yazi() {
         return 1
     fi
 
-    echo "Installing Yazi..."
-    sudo mv "/tmp/${YAZI_FOLDER}/yazi" "/usr/local/bin"
-    sudo mv "/tmp/${YAZI_FOLDER}/ya" "/usr/local/bin"
+    echo "Installing Yazi to ${INSTALL_DIR}..."
+    mkdir -p "$INSTALL_DIR"
+    if [[ "$INSTALL_DIR" == /usr/local/bin ]]; then
+        sudo mv "/tmp/${YAZI_FOLDER}/yazi" "${INSTALL_DIR}"
+        sudo mv "/tmp/${YAZI_FOLDER}/ya" "${INSTALL_DIR}"
+        sudo chown root:root "${INSTALL_DIR}/yazi" "${INSTALL_DIR}/ya"
+        sudo chmod 0755 "${INSTALL_DIR}/yazi" "${INSTALL_DIR}/ya"
+    else
+        mv "/tmp/${YAZI_FOLDER}/yazi" "${INSTALL_DIR}"
+        mv "/tmp/${YAZI_FOLDER}/ya" "${INSTALL_DIR}"
+        chmod 0755 "${INSTALL_DIR}/yazi" "${INSTALL_DIR}/ya"
+    fi
 
     if [[ $? -ne 0 ]]; then
         echo "Error: Failed to move yazi binary." >&2
         return 1
     fi
 
-    echo "Setting the owner and permissions of /usr/local/bin/yazi..."
-    sudo chown root:root /usr/local/bin/yazi
-    sudo chown root:root /usr/local/bin/ya
-    sudo chmod 0755 /usr/local/bin/yazi
-    sudo chmod 0755 /usr/local/bin/ya
-
-    if [[ ! -x /usr/local/bin/yazi ]]; then
-        echo "Error: /usr/local/bin/yazi is not executable. Check permissions." >&2
+    if [[ ! -x "${INSTALL_DIR}/yazi" ]]; then
+        echo "Error: ${INSTALL_DIR}/yazi is not executable. Check permissions." >&2
         return 1
     fi
 
@@ -57,8 +61,8 @@ function install_yazi() {
 
     # 5. Verify installation
     echo "Verifying installation..."
-    /usr/local/bin/yazi -V
-    /usr/local/bin/ya -V
+    "${INSTALL_DIR}/yazi" -V
+    "${INSTALL_DIR}/ya" -V
 
     if [[ $? -eq 0 ]]; then
         echo "Yazi installed successfully."

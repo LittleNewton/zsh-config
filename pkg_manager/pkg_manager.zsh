@@ -10,70 +10,79 @@ function ltnt_install() {
 
     if [[ $os_type == "Debian" || $os_type == "TrueNAS_SCALE" ]]; then
         if [[ $# -eq 0 ]]; then
-            echo "Error: No package specified. Usage: ltnt_install <package_name>" >&2
+            echo "Error: No package specified. Usage: ltnt_install <package_name> [--dest system|user]" >&2
             return 1
         fi
 
         local package=$1
+        shift
+
+        # Parse --dest option
+        local dest="system"
+        while [[ $# -gt 0 ]]; do
+            case $1 in
+            --dest)
+                dest="$2"
+                shift 2
+                ;;
+            *)
+                echo "Error: Unknown option '$1'." >&2
+                return 1
+                ;;
+            esac
+        done
+
+        local install_dir
+        case $dest in
+        system) install_dir="/usr/local/bin" ;;
+        user)   install_dir="${HOME}/.local/bin" ;;
+        *)
+            echo "Error: Invalid --dest value '$dest'. Use 'system' or 'user'." >&2
+            return 1
+            ;;
+        esac
+
+        _ltnt_run_install() {
+            local pkg=$1
+            local script="${module_dir}/${pkg}.zsh"
+            local fn="install_${pkg}"
+            if [[ -f "$script" ]]; then
+                source "$script"
+                if typeset -f "$fn" > /dev/null 2>&1; then
+                    $fn "$install_dir"
+                else
+                    echo "Warning: Install function $fn not found in $script." >&2
+                fi
+            else
+                echo "Error: $pkg installation script not found in ${script}" >&2
+                return 1
+            fi
+        }
 
         case $package in
-        joshuto)
-            if [[ -f "${module_dir}/joshuto.zsh" ]]; then
-                source "${module_dir}/joshuto.zsh"
-                install_joshuto
-            else
-                echo "Error: joshuto installation script not found in ${module_dir}/joshuto.zsh" >&2
-                return 1
-            fi
-            ;;
-        lazygit)
-            if [[ -f "${module_dir}/lazygit.zsh" ]]; then
-                source "${module_dir}/lazygit.zsh"
-                install_lazygit
-            else
-                echo "Error: lazygit installation script not found in ${module_dir}/lazygit.zsh" >&2
-                return 1
-            fi
-            ;;
-        neovim)
-            if [[ -f "${module_dir}/nvim.zsh" ]]; then
-                source "${module_dir}/nvim.zsh"
-                install_nvim
-            else
-                echo "Error: nvim installation script not found in ${module_dir}/nvim.zsh" >&2
-                return 1
-            fi
-            ;;
-        yazi)
-            if [[ -f "${module_dir}/yazi.zsh" ]]; then
-                source "${module_dir}/yazi.zsh"
-                install_yazi
-            else
-                echo "Error: yazi installation script not found in ${module_dir}/yazi.zsh" >&2
-                return 1
-            fi
+        joshuto|lazygit|neovim|yazi)
+            local script_name=$package
+            [[ $package == "neovim" ]] && script_name="nvim"
+            _ltnt_run_install "$script_name"
             ;;
         all)
-            echo "Installing all available packages in ${module_dir}..."
+            echo "Installing all available packages to ${install_dir}..."
             for script in ${module_dir}/*.zsh; do
                 if [[ -f "$script" ]]; then
-                    echo "Sourcing and executing $script..."
-                    source "$script"
-                    script_name=$(basename "$script" .zsh)
-                    install_function="install_${script_name}"
-                    if command -v $install_function >/dev/null 2>&1; then
-                        $install_function
-                    else
-                        echo "Warning: Install function $install_function not found in $script." >&2
-                    fi
+                    local script_name=$(basename "$script" .zsh)
+                    echo "Installing ${script_name}..."
+                    _ltnt_run_install "$script_name"
                 fi
             done
             ;;
         *)
             echo "Error: Unsupported package '$package'." >&2
+            unfunction _ltnt_run_install
             return 1
             ;;
         esac
+
+        unfunction _ltnt_run_install
     else
         echo "Error: Unsupported OS type '$os_type'. This script only supports Debian or TrueNAS SCALE." >&2
         return 1
