@@ -29,7 +29,9 @@ set_mamba() {
             fi
             unset __mamba_setup
             # <<< mamba initialize <<<
-            micromamba activate ${DEFAULT_MAMBA_ENV}
+            if micromamba env list 2>/dev/null | grep -q "^${DEFAULT_MAMBA_ENV}"; then
+                micromamba activate ${DEFAULT_MAMBA_ENV}
+            fi
     elif [[ " ${unsupported_os[@]} " =~ " ${os_type} " ]]; then
         # Unsupported OS types do not require Conda configuration
         # No action is needed

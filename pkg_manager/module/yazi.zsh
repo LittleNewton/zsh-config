@@ -1,6 +1,12 @@
 function install_yazi() {
     local INSTALL_DIR="${1:-/usr/local/bin}"
 
+    # 检查依赖
+    if ! command -v jq &>/dev/null; then
+        echo "Error: 'jq' is required but not installed. Run: apt-get install jq" >&2
+        return 1
+    fi
+
     # 1. Get the latest version number
     local YAZI_VERSION
     YAZI_VERSION=$(curl -s https://api.github.com/repos/sxyazi/yazi/tags | jq -r '.[].name' | sort -rV | head -n 1)

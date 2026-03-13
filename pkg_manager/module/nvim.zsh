@@ -33,7 +33,7 @@ function install_nvim() {
     fi
 
     echo "Verifying installation..."
-    "${INSTALL_DIR}/${NVIM_APPIMAGE}" --version
+    APPIMAGE_EXTRACT_AND_RUN=1 "${INSTALL_DIR}/${NVIM_APPIMAGE}" --version
 
     if [[ $? -eq 0 ]]; then
         echo "Neovim installed successfully."

@@ -159,7 +159,7 @@ fi
 
 # Rust 语言相关
 if [[ $os_type == "Debian" ]]; then
-    source "$HOME/.cargo/env"
+    [[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
 fi
 
 # Ghidra 相关

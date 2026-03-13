@@ -1,6 +1,12 @@
 function install_lazygit() {
     local INSTALL_DIR="${1:-/usr/local/bin}"
 
+    # 检查依赖
+    if ! command -v jq &>/dev/null; then
+        echo "Error: 'jq' is required but not installed. Run: apt-get install jq" >&2
+        return 1
+    fi
+
     # 1. 获取最新版本号
     local LAZYGIT_VERSION
     LAZYGIT_VERSION=$(curl -s https://api.github.com/repos/jesseduffield/lazygit/tags | jq -r '.[].name' | sort -rV | head -n 1)
