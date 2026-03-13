@@ -17,11 +17,8 @@ set_mamba() {
             # !! Contents within this block are managed by 'micromamba shell init' !!
             if [[ $os_type == "macOS" ]]; then
                 export MAMBA_EXE='/opt/homebrew/bin/micromamba';
-            elif [[ $os_type == "Debian" ]]; then
-                export MAMBA_EXE="$HOME/.local/bin/micromamba";
             else
-                echo "Unsupported OS type for Mamba initialization: $os_type"
-                return 1
+                export MAMBA_EXE="$HOME/.local/bin/micromamba";
             fi
             export MAMBA_ROOT_PREFIX="$HOME/.local/share/micromamba";
             __mamba_setup="$("$MAMBA_EXE" shell hook --shell zsh --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
