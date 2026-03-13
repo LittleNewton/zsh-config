@@ -138,6 +138,17 @@ if [[ $os_type == "macOS" ]]; then
 
     # mtr
     export PATH="/opt/homebrew/Cellar/mtr/0.95/sbin/:$PATH"
+
+    # LM Studio
+    export PATH="$PATH:/Users/newton/.lmstudio/bin"
+
+    # Another bin
+    export PATH="$HOME/.local/bin:$PATH"
+
+    # Antigravity
+    export PATH="/Users/newton/.antigravity/antigravity/bin:$PATH"
+
+    
 fi
 
 # Go 语言相关

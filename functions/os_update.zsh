@@ -1,111 +1,139 @@
-function os-update () {
-    # (1) 更新 TeX Live
-    print -P "%F{cyan}Step 1/4: tlmgr update%f"
+function _os_update_texlive() {
+    local step=$1
+    print -P "%F{cyan}Step ${step}: TeX Live (tlmgr)%f"
     if [[ $IS_TEXLIVE_INSTALLED == "true" ]]; then
         sudo tlmgr update --self --all
-    elif [[ $IS_TEXLIVE_INSTALLED == "false" ]]; then
-        print -P "%F{white}INFO: No installation of texlive was detected, please check it%f"
+    else
+        print -P "%F{white}INFO: TeX Live not detected, skipping.%f"
     fi
+}
 
-    # (2) 更新 miniconda Python，不使用系统 Python
-    print -P "%F{cyan}Step 2/4: Updating Miniconda%f"
+function _os_update_conda() {
+    local step=$1
+    print -P "%F{cyan}Step ${step}: Conda (base environment)%f"
+    if ! command -v conda >/dev/null 2>&1; then
+        print -P "%F{white}INFO: conda not found, skipping.%f"
+        return 0
+    fi
     print -P "%F{white}NOTE: Only the base virtual environment will be updated.%f"
     conda activate base
     conda upgrade python --yes
     conda upgrade -n base --yes --all
     conda clean --all --yes
+}
 
-    # (3) 更新 nvm 和 Node.js
-    print -P "%F{cyan}Step 3/4: Updating NVM and Node.js%f"
-    if command -v nvm >/dev/null 2>&1 || [[ -s "$NVM_DIR/nvm.sh" ]]; then
-        # 确保 nvm 已加载
-        [[ -s "$NVM_DIR/nvm.sh" ]] && source "$NVM_DIR/nvm.sh"
+function _os_update_micromamba() {
+    local step=$1
+    print -P "%F{cyan}Step ${step}: micromamba (py314 environment)%f"
+    if ! command -v micromamba >/dev/null 2>&1; then
+        print -P "%F{white}INFO: micromamba not found, skipping.%f"
+        return 0
+    fi
+    print -P "%F{white}NOTE: Only the py314 virtual environment will be updated.%f"
+    micromamba activate py314
+    micromamba update --all --yes -n py314
+    micromamba clean --all --yes
+}
 
-        # 更新 nvm 本身
-        print -P "%F{yellow}> Updating nvm...%f"
-        (
-            cd "$NVM_DIR"
-            git fetch --tags origin
-            git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
-        ) && source "$NVM_DIR/nvm.sh"
-
-        # 获取当前使用的 Node 版本
-        current_node=$(nvm current)
-        print -P "%F{white}Current Node.js version: $current_node%f"
-
-        # 更新到最新的 LTS 版本（如果当前使用的不是特定版本）
-        if [[ $current_node != "system" ]] && [[ $current_node != "none" ]]; then
-            # 获取最新 LTS 版本号
-            latest_lts=$(nvm ls-remote --lts | grep -oE 'v[0-9]+\.[0-9]+\.[0-9]+' | tail -1)
-            print -P "%F{white}Latest LTS version: $latest_lts%f"
-
-            # 只有当前版本与最新 LTS 不同时才安装
-            if [[ $current_node != $latest_lts ]]; then
-                print -P "%F{yellow}> Installing latest LTS Node.js...%f"
-                nvm install --lts
-                nvm use --lts
-            else
-                print -P "%F{white}Already using latest LTS version, skipping installation%f"
-            fi
-
-            # 更新全局 npm
-            print -P "%F{yellow}> Updating npm...%f"
-            npm install -g npm@latest --no-fund
-
-            # 可选：更新全局安装的 npm 包
-            print -P "%F{yellow}> Updating global npm packages...%f"
-            npm update -g --no-fund
-        else
-            print -P "%F{white}INFO: No active Node.js version detected, skipping Node.js update%f"
-        fi
-    else
-        print -P "%F{white}INFO: nvm not detected, skipping NVM update%f"
+function _os_update_nvm() {
+    local step=$1
+    print -P "%F{cyan}Step ${step}: NVM and Node.js%f"
+    if ! command -v nvm >/dev/null 2>&1 && [[ ! -s "$NVM_DIR/nvm.sh" ]]; then
+        print -P "%F{white}INFO: nvm not detected, skipping.%f"
+        return 0
     fi
 
-    # (4) 更新系统包管理器下的软件
+    # Ensure nvm is loaded
+    [[ -s "$NVM_DIR/nvm.sh" ]] && source "$NVM_DIR/nvm.sh"
+
+    # Update nvm itself via git
+    print -P "%F{yellow}> Updating nvm via git...%f"
+    (
+        cd "$NVM_DIR"
+        git fetch --tags origin
+        git checkout $(git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1))
+    ) && source "$NVM_DIR/nvm.sh"
+
+    local current_node
+    current_node=$(nvm current)
+    print -P "%F{white}Current Node.js version: ${current_node}%f"
+
+    if [[ $current_node == "system" ]] || [[ $current_node == "none" ]]; then
+        print -P "%F{white}INFO: No active nvm-managed Node.js, skipping Node.js update.%f"
+        return 0
+    fi
+
+    # Check if already on latest LTS
+    local latest_lts
+    latest_lts=$(nvm ls-remote --lts | grep -oE 'v[0-9]+\.[0-9]+\.[0-9]+' | tail -1)
+    print -P "%F{white}Latest LTS version: ${latest_lts}%f"
+
+    if [[ $current_node != $latest_lts ]]; then
+        print -P "%F{yellow}> Installing latest LTS Node.js...%f"
+        nvm install --lts
+        nvm use --lts
+    else
+        print -P "%F{white}Already on latest LTS, skipping installation.%f"
+    fi
+
+    print -P "%F{yellow}> Updating npm...%f"
+    npm install -g npm@latest --no-fund
+
+    print -P "%F{yellow}> Updating global npm packages...%f"
+    npm update -g --no-fund
+}
+
+function _os_update_os_packages() {
+    local step=$1
+    print -P "%F{cyan}Step ${step}: OS package manager ($os_type)%f"
     case $os_type in
         macOS)
-            print -P "%F{cyan}Step 4/4: Updating macOS Homebrew%f"
             brew update
             brew upgrade
             brew cleanup
             brew autoremove
             ;;
         Ubuntu|Debian)
-            if command -v apt-get >/dev/null 2>&1; then
-                print -P "%F{cyan}Step 4/4: Updating $os_type%f"
-
-                cmds=(
-                    "sudo apt-get update"
-                    "sudo apt-get upgrade --just-print"
-                    "sudo apt-get upgrade"
-                    "sudo apt-get dist-upgrade"
-                    "sudo apt-get -y autoremove"
-                    "sudo apt-get -y autoclean"
-                    "sudo apt-get -y clean"
-                )
-
-                for cmd in "${cmds[@]}"; do
-                    echo
-                    print -P "%F{yellow}> $cmd%f"
-                    eval $cmd
-                done
-            else
-                print -P "%F{red}ERROR: System package manager not supported.%f"
+            if ! command -v apt-get >/dev/null 2>&1; then
+                print -P "%F{red}ERROR: apt-get not found on $os_type system.%f"
+                return 1
             fi
+            local cmds=(
+                "sudo apt-get update"
+                "sudo apt-get upgrade --just-print"
+                "sudo apt-get upgrade"
+                "sudo apt-get dist-upgrade"
+                "sudo apt-get -y autoremove"
+                "sudo apt-get -y autoclean"
+                "sudo apt-get -y clean"
+            )
+            for cmd in "${cmds[@]}"; do
+                echo
+                print -P "%F{yellow}> $cmd%f"
+                eval $cmd
+            done
             ;;
         RedHat)
-            if command -v yum >/dev/null 2>&1; then
-                print -P "%F{cyan}Step 4/4: Updating RedHat%f"
-                sudo yum update -y
-                sudo yum autoremove -y
-                sudo yum clean all
-            else
-                print -P "%F{red}ERROR: System package manager not supported.%f"
+            if ! command -v yum >/dev/null 2>&1; then
+                print -P "%F{red}ERROR: yum not found on RedHat system.%f"
+                return 1
             fi
+            sudo yum update -y
+            sudo yum autoremove -y
+            sudo yum clean all
             ;;
         *)
-            print -P "%F{red}ERROR: Unsupported operating system: $os_type.%f"
+            print -P "%F{red}ERROR: Unsupported OS type: $os_type.%f"
+            return 1
             ;;
     esac
+}
+
+function os-update() {
+    local step=0
+    (( step++ )) ; _os_update_texlive      $step
+    (( step++ )) ; _os_update_conda        $step
+    (( step++ )) ; _os_update_micromamba   $step
+    (( step++ )) ; _os_update_nvm          $step
+    (( step++ )) ; _os_update_os_packages  $step
 }

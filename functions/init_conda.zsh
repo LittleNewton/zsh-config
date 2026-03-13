@@ -2,10 +2,13 @@ set_conda() {
     # 定义支持的操作系统类型数组
     supported_os=(
         "Debian"
-        "macOS"
         "Manjaro"
         "TrueNAS_SCALE"
         "Ubuntu"
+    )
+    unsupported_os=(
+        "OpenWrt"
+        "macOS"
     )
 
     # 检查当前操作系统是否在支持列表中
@@ -24,8 +27,8 @@ set_conda() {
         fi
         unset __conda_setup
         # <<< conda initialize <<<
-    elif [[ "$os_type" == "OpenWrt" ]]; then
-        # OpenWrt 不需要 Anaconda 配置
+    elif [[ " ${unsupported_os[@]} " =~ " ${os_type} " ]]; then
+        # Unsupported OS types do not require Conda configuration
         # No action is needed
         :
     else
