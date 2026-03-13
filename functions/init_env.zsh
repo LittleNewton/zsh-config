@@ -130,14 +130,14 @@ if [[ $os_type == "macOS" ]]; then
     export PATH="$JAVA_HOME/bin:$PATH"
 
     # Arm Toolchain
-    export PATH="${HOME}/bin/arm-none-eabi/bin:$PATH"
-    export PATH="${HOME}/bin/arm-none-eabi/arm-none-eabi/bin:$PATH"
+    export PATH="$HOME/.local/opt/arm-none-eabi/bin:$PATH"
+    export PATH="$HOME/.local/opt/arm-none-eabi/arm-none-eabi/bin:$PATH"
 
     # Ghidra
     export GHIDRA_VERSION="12.0.3"
-    export GHIDRA="${HOME}/bin/ghidra/ghidra_${GHIDRA_VERSION}_PUBLIC"
+    export GHIDRA="${HOME}/.local/opt/ghidra_${GHIDRA_VERSION}_PUBLIC"
     export PATH="$GHIDRA/support:$PATH"
-    export GHIDRA_INSTALL_DIR="${HOME}/bin/ghidra/ghidra_${GHIDRA_VERSION}_PUBLIC"
+    export GHIDRA_INSTALL_DIR="${HOME}/.local/opt/ghidra_${GHIDRA_VERSION}_PUBLIC"
 
     # mtr
     export PATH="/opt/homebrew/Cellar/mtr/0.95/sbin/:$PATH"
