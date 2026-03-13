@@ -17,6 +17,9 @@ if [[ $os_type == "TrueNAS_SCALE" ]]; then
     export PATH="$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/sbin:$PATH"
 fi
 
+# Mamba 相关配置
+export DEFAULT_MAMBA_ENV="py314"
+
 # 存储池相关目录
 if [[ $os_type == "Debian" || $os_type == "TrueNAS_SCALE" ]]; then
     # Level 1: Storage Pools

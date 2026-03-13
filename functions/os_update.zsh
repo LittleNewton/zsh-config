@@ -24,14 +24,14 @@ function _os_update_conda() {
 
 function _os_update_micromamba() {
     local step=$1
-    print -P "%F{cyan}Step ${step}: micromamba (py314 environment)%f"
+    print -P "%F{cyan}Step ${step}: micromamba (${DEFAULT_MAMBA_ENV} environment)%f"
     if ! command -v micromamba >/dev/null 2>&1; then
         print -P "%F{white}INFO: micromamba not found, skipping.%f"
         return 0
     fi
-    print -P "%F{white}NOTE: Only the py314 virtual environment will be updated.%f"
-    micromamba activate py314
-    micromamba update --all --yes -n py314
+    print -P "%F{white}NOTE: Only the ${DEFAULT_MAMBA_ENV} virtual environment will be updated.%f"
+    micromamba activate ${DEFAULT_MAMBA_ENV}
+    micromamba update --all --yes -n ${DEFAULT_MAMBA_ENV}
     micromamba clean --all --yes
 }
 
