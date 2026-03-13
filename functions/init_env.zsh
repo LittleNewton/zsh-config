@@ -11,6 +11,10 @@ export harbor="app-registry.littlenewton.cn"
 if [[ $os_type == "TrueNAS_SCALE" ]]; then
     # 补全 PATH 变量，否则普通 sudo 用户无法使用 zpool 命令
     export PATH=$PATH:/sbin
+
+    # Homebrew 在 TrueNAS SCALE 上安装在 /usr/local 目录下，添加到 PATH 中
+    export HOMEBREW_PREFIX="$HOME/.homebrew"
+    export PATH="$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/sbin:$PATH"
 fi
 
 # 存储池相关目录
