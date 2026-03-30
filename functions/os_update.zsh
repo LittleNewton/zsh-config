@@ -8,20 +8,6 @@ function _os_update_texlive() {
     fi
 }
 
-function _os_update_conda() {
-    local step=$1
-    print -P "%F{cyan}Step ${step}: Conda (base environment)%f"
-    if ! command -v conda >/dev/null 2>&1; then
-        print -P "%F{white}INFO: conda not found, skipping.%f"
-        return 0
-    fi
-    print -P "%F{white}NOTE: Only the base virtual environment will be updated.%f"
-    conda activate base
-    conda upgrade python --yes
-    conda upgrade -n base --yes --all
-    conda clean --all --yes
-}
-
 function _os_update_micromamba() {
     local step=$1
     print -P "%F{cyan}Step ${step}: micromamba (${DEFAULT_MAMBA_ENV} environment)%f"
@@ -89,6 +75,7 @@ function _os_update_os_packages() {
     case $os_type in
         macOS)
             brew update
+            brew outdated
             brew upgrade
             brew cleanup
             brew autoremove
@@ -132,7 +119,6 @@ function _os_update_os_packages() {
 function os-update() {
     local step=0
     (( step++ )) ; _os_update_texlive      $step
-    (( step++ )) ; _os_update_conda        $step
     (( step++ )) ; _os_update_micromamba   $step
     (( step++ )) ; _os_update_nvm          $step
     (( step++ )) ; _os_update_os_packages  $step
