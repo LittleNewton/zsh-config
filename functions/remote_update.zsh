@@ -7,6 +7,7 @@ ServerInfo=(
     x1e-debian
     x299-debian
     gtr7-debian
+    pi5-debian
 )
 
 function remote-exe() {
