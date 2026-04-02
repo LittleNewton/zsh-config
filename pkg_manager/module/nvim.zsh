@@ -3,7 +3,8 @@ function install_nvim() {
     local NVIM_VERSION="stable"
     local NVIM_APPIMAGE="nvim.appimage"
     local OS="linux"
-    local ARCH=$(uname -m)
+    local ARCH
+    ARCH=$(_ltnt_asset_arch nvim) || return 1
     local NVIM_DOWNLOAD_URL="https://github.com/neovim/neovim/releases/download/${NVIM_VERSION}/nvim-${OS}-${ARCH}.appimage"
 
     echo "Downloading Neovim (${NVIM_VERSION}) to ${INSTALL_DIR}..."

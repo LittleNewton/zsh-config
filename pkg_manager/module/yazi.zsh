@@ -3,25 +3,60 @@ function install_yazi() {
 
     # 检查依赖
     if ! command -v jq &>/dev/null; then
-        echo "Error: 'jq' is required but not installed. Run: apt-get install jq" >&2
+        echo "Error: 'jq' is required but not installed." >&2
         return 1
     fi
 
+    local YAZI_ARCH
+    YAZI_ARCH=$(_ltnt_asset_arch yazi) || return 1
+
+    local YAZI_LIBC
+    YAZI_LIBC=$(_ltnt_detect_linux_libc)
+
+    local YAZI_LIBC_FALLBACK="musl"
+    if [[ "$YAZI_LIBC" == "musl" ]]; then
+        YAZI_LIBC_FALLBACK="gnu"
+    fi
+
     # 1. Get the latest version number
+    local YAZI_RELEASE
+    YAZI_RELEASE=$(curl -fsSL https://api.github.com/repos/sxyazi/yazi/releases/latest)
+    if [[ $? -ne 0 || -z "$YAZI_RELEASE" ]]; then
+        echo "Error: Failed to fetch Yazi release metadata." >&2
+        return 1
+    fi
+
     local YAZI_VERSION
-    YAZI_VERSION=$(curl -s https://api.github.com/repos/sxyazi/yazi/tags | jq -r '.[].name' | sort -rV | head -n 1)
+    YAZI_VERSION=$(printf '%s' "$YAZI_RELEASE" | jq -r '.tag_name')
+    if [[ -z "$YAZI_VERSION" || "$YAZI_VERSION" == "null" ]]; then
+        echo "Error: Failed to resolve the latest Yazi version." >&2
+        return 1
+    fi
 
     # 2. Define related variables
-    local CLEAN_YAZI_VERSION
-    CLEAN_YAZI_VERSION=$(echo "$YAZI_VERSION" | sed 's/^v//')
+    local candidate_libc
+    local YAZI_FOLDER=""
+    local YAZI_COMPRESSED_FILE=""
+    local YAZI_DOWNLOAD_URL=""
 
-    local YAZI_FOLDER="yazi-x86_64-unknown-linux-musl"
-    local YAZI_COMPRESSED_FILE="${YAZI_FOLDER}.zip"
-    local YAZI_DOWNLOAD_URL="https://github.com/sxyazi/yazi/releases/download/${YAZI_VERSION}/${YAZI_COMPRESSED_FILE}"
+    for candidate_libc in "$YAZI_LIBC" "$YAZI_LIBC_FALLBACK"; do
+        YAZI_COMPRESSED_FILE=$(printf '%s' "$YAZI_RELEASE" | jq -r --arg arch "$YAZI_ARCH" --arg libc "$candidate_libc" '.assets[] | select(.name == ("yazi-" + $arch + "-unknown-linux-" + $libc + ".zip")) | .name' | head -n 1)
+
+        if [[ -n "$YAZI_COMPRESSED_FILE" ]]; then
+            YAZI_FOLDER="${YAZI_COMPRESSED_FILE%.zip}"
+            YAZI_DOWNLOAD_URL=$(printf '%s' "$YAZI_RELEASE" | jq -r --arg name "$YAZI_COMPRESSED_FILE" '.assets[] | select(.name == $name) | .browser_download_url' | head -n 1)
+            break
+        fi
+    done
+
+    if [[ -z "$YAZI_COMPRESSED_FILE" || -z "$YAZI_DOWNLOAD_URL" ]]; then
+        echo "Error: No Yazi binary was found for architecture '${YAZI_ARCH}'." >&2
+        return 1
+    fi
 
     # 3. Download and install the latest version
     echo "Downloading Yazi version ${YAZI_VERSION}..."
-    wget -q "$YAZI_DOWNLOAD_URL" -O "/tmp/${YAZI_COMPRESSED_FILE}"
+    curl -fsSL "$YAZI_DOWNLOAD_URL" -o "/tmp/${YAZI_COMPRESSED_FILE}"
 
     if [[ $? -ne 0 ]]; then
         echo "Error: Failed to download yazi." >&2

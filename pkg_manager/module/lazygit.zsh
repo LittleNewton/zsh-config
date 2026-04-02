@@ -3,25 +3,47 @@ function install_lazygit() {
 
     # 检查依赖
     if ! command -v jq &>/dev/null; then
-        echo "Error: 'jq' is required but not installed. Run: apt-get install jq" >&2
+        echo "Error: 'jq' is required but not installed." >&2
         return 1
     fi
 
+    local LAZYGIT_ARCH
+    LAZYGIT_ARCH=$(_ltnt_asset_arch lazygit) || return 1
+
     # 1. 获取最新版本号
+    local LAZYGIT_RELEASE
+    LAZYGIT_RELEASE=$(curl -fsSL https://api.github.com/repos/jesseduffield/lazygit/releases/latest)
+    if [[ $? -ne 0 || -z "$LAZYGIT_RELEASE" ]]; then
+        echo "Error: Failed to fetch Lazygit release metadata." >&2
+        return 1
+    fi
+
     local LAZYGIT_VERSION
-    LAZYGIT_VERSION=$(curl -s https://api.github.com/repos/jesseduffield/lazygit/tags | jq -r '.[].name' | sort -rV | head -n 1)
+    LAZYGIT_VERSION=$(printf '%s' "$LAZYGIT_RELEASE" | jq -r '.tag_name')
+    if [[ -z "$LAZYGIT_VERSION" || "$LAZYGIT_VERSION" == "null" ]]; then
+        echo "Error: Failed to resolve the latest Lazygit version." >&2
+        return 1
+    fi
 
     # 2. 定义相关变量
-    local CLEAN_LAZYGIT_VERSION
-    CLEAN_LAZYGIT_VERSION=$(echo "$LAZYGIT_VERSION" | sed 's/^v//')
+    local LAZYGIT_COMPRESSED_FILE
+    LAZYGIT_COMPRESSED_FILE=$(printf '%s' "$LAZYGIT_RELEASE" | jq -r --arg arch "$LAZYGIT_ARCH" '.assets[] | select(.name | ascii_downcase | endswith("linux_" + $arch + ".tar.gz")) | .name' | head -n 1)
+    if [[ -z "$LAZYGIT_COMPRESSED_FILE" ]]; then
+        echo "Error: No Lazygit binary was found for architecture '${LAZYGIT_ARCH}'." >&2
+        return 1
+    fi
 
-    local LAZYGIT_FOLDER="lazygit_${CLEAN_LAZYGIT_VERSION}_Linux_x86_64"
-    local LAZYGIT_COMPRESSED_FILE="${LAZYGIT_FOLDER}.tar.gz"
-    local LAZYGIT_DOWNLOAD_URL="https://github.com/jesseduffield/lazygit/releases/download/${LAZYGIT_VERSION}/${LAZYGIT_COMPRESSED_FILE}"
+    local LAZYGIT_FOLDER="${LAZYGIT_COMPRESSED_FILE%.tar.gz}"
+    local LAZYGIT_DOWNLOAD_URL
+    LAZYGIT_DOWNLOAD_URL=$(printf '%s' "$LAZYGIT_RELEASE" | jq -r --arg name "$LAZYGIT_COMPRESSED_FILE" '.assets[] | select(.name == $name) | .browser_download_url' | head -n 1)
+    if [[ -z "$LAZYGIT_DOWNLOAD_URL" || "$LAZYGIT_DOWNLOAD_URL" == "null" ]]; then
+        echo "Error: Failed to resolve the Lazygit download URL." >&2
+        return 1
+    fi
 
     # 3. 下载并安装最新版本
     echo "Downloading Lazygit version ${LAZYGIT_VERSION}..."
-    wget -q "$LAZYGIT_DOWNLOAD_URL" -O "/tmp/${LAZYGIT_COMPRESSED_FILE}"
+    curl -fsSL "$LAZYGIT_DOWNLOAD_URL" -o "/tmp/${LAZYGIT_COMPRESSED_FILE}"
 
     if [[ $? -ne 0 ]]; then
         echo "Error: Failed to download lazygit." >&2
