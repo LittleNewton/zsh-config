@@ -34,7 +34,7 @@ if [[ $os_type == "Debian" || $os_type == "TrueNAS_SCALE" ]]; then
     export      doc="${dapustor}/Documents"
     export     repo="${dapustor}/Develop"
     export     work="${dapustor}/Work"
-    export     soft="${backup}/installer"
+    export     soft="${backup}/installers"
 
     # Media management, only for MDCx and tinyMediaManager
     export     mdcx="${work}/mdcx"
