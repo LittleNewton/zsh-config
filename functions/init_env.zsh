@@ -30,10 +30,11 @@ if [[ $os_type == "Debian" || $os_type == "TrueNAS_SCALE" ]]; then
 
     # Level 2: Main Directories
     export  appdata="${dapustor}/AppData"
+    export   backup="${dapustor}/Backup"
     export      doc="${dapustor}/Documents"
     export     repo="${dapustor}/Develop"
-    export     soft="${doc}/installer"
     export     work="${dapustor}/Work"
+    export     soft="${backup}/installer"
 
     # Media management, only for MDCx and tinyMediaManager
     export     mdcx="${work}/mdcx"
@@ -92,7 +93,6 @@ if [[ $os_type == "Debian" || $os_type == "TrueNAS_SCALE" ]]; then
     export     tvdb="${jmedia}/db_tv_series"
 
     # Other useful directories
-    export     bins="${soft}/software_linux/bins"
     export download="${toshiba}/Downloads"
     export   xunlei="${download}/Xunlei_Downloads"
     export     qbit="${download}/qBittorrent_Downloads"
