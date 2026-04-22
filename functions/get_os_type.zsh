@@ -1,48 +1,44 @@
 get_os_type() {
-
+    local kernel=$(uname -s)
     local os_type
-    if [[ $(uname -s) == "Linux" ]]; then
-        os_type=$(grep -i '^NAME' /etc/os-release)
 
-        # A. TrueNAS SCALE
-        if [[ $(uname -r) == *"truenas"* ]]; then
-            os_type="TrueNAS_SCALE"
-
-        # B. OpenWrt
-        elif [[ $os_type == *"OpenWrt"* ]]; then
-            os_type="OpenWrt"
-
-        # C. Debian
-        elif [[ $os_type == *"Debian"* ]]; then
-            os_type="Debian"
-
-        # D. RedHat
-        elif [[ $os_type == *"Red Hat Enterprise Linux"* ]]; then
-            os_type="RedHat"
-
-        # E. Ubuntu
-        elif [[ $os_type == *"Ubuntu"* ]]; then
-            os_type="Ubuntu"
-
-        # F. FreeBSD
-        elif [[ $os_type == *"FreeBSD"* ]]; then
-            os_type="FreeBSD"
-
-        # G. Manjaro 
-        elif [[ $os_type == *"Manjaro"* ]]; then
-            os_type="Manjaro"
-
-        else
-            os_type="Linux (Unknown Distribution)"
-        fi
-
-    elif [[ $(uname -s) == "Darwin" ]]; then
+    if [[ $kernel == Darwin ]]; then
         os_type="macOS"
-    else
+    elif [[ $kernel == FreeBSD ]]; then
+        os_type="FreeBSD"
+    elif [[ $kernel != Linux ]]; then
         os_type="unknown"
+    elif [[ $(uname -r) == *truenas* ]]; then
+        # TrueNAS SCALE reports Debian in /etc/os-release, so detect it via the kernel name.
+        os_type="TrueNAS_SCALE"
+    elif [[ -r /etc/os-release ]]; then
+        # Source in a sub-shell so NAME/VERSION/PRETTY_NAME/... don't leak into the caller's scope.
+        local ID ID_LIKE
+        ID=$(. /etc/os-release 2>/dev/null; echo "$ID")
+        ID_LIKE=$(. /etc/os-release 2>/dev/null; echo "$ID_LIKE")
+        case "$ID" in
+            openwrt) os_type="OpenWrt" ;;
+            debian)  os_type="Debian" ;;
+            ubuntu)  os_type="Ubuntu" ;;
+            manjaro) os_type="Manjaro" ;;
+            arch)    os_type="Arch" ;;
+            alpine)  os_type="Alpine" ;;
+            fedora)  os_type="Fedora" ;;
+            rhel|centos|rocky|almalinux) os_type="RedHat" ;;
+            *)
+                case " $ID_LIKE " in
+                    *" rhel "*|*" fedora "*) os_type="RedHat" ;;
+                    *" debian "*)            os_type="Debian" ;;
+                    *" arch "*)              os_type="Arch" ;;
+                    *)                       os_type="Linux (Unknown Distribution)" ;;
+                esac
+                ;;
+        esac
+    else
+        os_type="Linux (Unknown Distribution)"
     fi
 
-    echo $os_type
+    echo "$os_type"
 }
 
 export os_type=$(get_os_type)
