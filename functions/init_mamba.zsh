@@ -1,5 +1,6 @@
 set_mamba() {
     # 定义支持的操作系统类型数组
+    local supported_os unsupported_os
     supported_os=(
         "Debian"
         "macOS"
@@ -33,7 +34,7 @@ set_mamba() {
                 micromamba activate ${DEFAULT_MAMBA_ENV}
             fi
     elif [[ " ${unsupported_os[@]} " =~ " ${os_type} " ]]; then
-        # Unsupported OS types do not require Conda configuration
+        # Unsupported OS types do not require Mamba configuration
         # No action is needed
         :
     else
