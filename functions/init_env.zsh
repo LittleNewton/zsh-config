@@ -172,3 +172,12 @@ fi
 
 # Another bin
 export PATH="$HOME/.local/bin:$PATH"
+
+# OpenWrt (musl libc 内建 UTF-8，设置 locale 即可)
+if [[ $os_type == "OpenWrt" ]]; then
+    export LANG=en_US.UTF-8
+    export LC_ALL=en_US.UTF-8
+fi
+
+# $HOME 的可执行文件目录
+export PATH="$PATH:$HOME/bin"
