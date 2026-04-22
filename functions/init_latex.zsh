@@ -1,3 +1,7 @@
+# Note: `sudo tlmgr` fails because sudo's secure_path excludes TeX Live's bin.
+# Shell init can't fix this; run `sudo $(which tlmgr) path add` once to create
+# symlinks in /usr/local/bin (TeX Live's official solution).
+
 export IS_TEXLIVE_INSTALLED="false"
 
 # Map (kernel, arch) to the TeX Live binary sub-directory name.
