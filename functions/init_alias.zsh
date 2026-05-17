@@ -11,6 +11,7 @@ alias egrep='egrep --color=auto'
 
 # Network Related
 alias ip='ip -color'
+[[ $os_type == macOS ]] && alias flushdns='sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder'
 
 # Directory Related
 alias dirs='dirs -lpv'
