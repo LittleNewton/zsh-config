@@ -19,10 +19,10 @@ zpool_pane=$(tmux split-window -h -p 28 -c "$HOME" -t "$shell_pane" -P -F "#{pan
 tmux resize-pane -t "$shell_pane" -x 137
 
 left_iotop_pane=$(tmux split-window -v -p 36 -c "$HOME" -t "$shell_pane" -P -F "#{pane_id}")
-tmux resize-pane -t "$shell_pane" -y 36
+tmux resize-pane -t "$shell_pane" -y 35
 
 right_iotop_pane=$(tmux split-window -v -p 88 -c "$HOME" -t "$zpool_pane" -P -F "#{pane_id}")
-tmux resize-pane -t "$zpool_pane" -y 6
+tmux resize-pane -t "$zpool_pane" -y 5
 
 # Pane 2: sudo iotop -oP
 tmux send-keys -t "$left_iotop_pane" 'sudo iotop -oP' C-m

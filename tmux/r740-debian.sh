@@ -16,8 +16,13 @@ tmux new-session -d -s "$SESSION_NAME" -n main -c "$HOME" -x "$(tput cols)" -y "
 # Window 1: main - shell/iotop on the left, zpool/iotop on the right
 shell_pane=$(tmux display-message -p -t "$SESSION_NAME:main" "#{pane_id}")
 zpool_pane=$(tmux split-window -h -p 33 -c "$HOME" -t "$shell_pane" -P -F "#{pane_id}")
+tmux resize-pane -t "$shell_pane" -x 127
+
 left_iotop_pane=$(tmux split-window -v -p 34 -c "$HOME" -t "$shell_pane" -P -F "#{pane_id}")
+tmux resize-pane -t "$shell_pane" -y 36
+
 right_iotop_pane=$(tmux split-window -v -p 78 -c "$HOME" -t "$zpool_pane" -P -F "#{pane_id}")
+tmux resize-pane -t "$zpool_pane" -y 11
 
 # Pane 2: sudo iotop -oP
 tmux send-keys -t "$left_iotop_pane" 'sudo iotop -oP' C-m
