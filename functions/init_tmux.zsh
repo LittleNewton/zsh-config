@@ -6,7 +6,7 @@ Initialize the tmux layout for the current host by running:
   ${XDG_CONFIG_HOME:-$HOME/.config}/zsh/tmux/$(hostname -s).sh
 
 Options:
-  -f, --force    Ask for confirmation, then run 'tmux kill-server' before init
+  -f, --force    Ask for confirmation, then kill tmux session 'normal' before init
   -h, --help     Show this help message
 EOF
 }
@@ -80,11 +80,11 @@ function init-tmux() {
 
     if [[ "$force" == true ]]; then
         local answer
-        print -n "This will run 'tmux kill-server' before initializing '$host'. Continue? [y/N] "
+        print -n "This will kill tmux session 'normal' before initializing '$host'. Continue? [y/N] "
         read -r answer
         case "$answer" in
             [yY])
-                tmux kill-server 2>/dev/null || true
+                tmux kill-session -t normal 2>/dev/null || true
                 ;;
             *)
                 print "Aborted."
