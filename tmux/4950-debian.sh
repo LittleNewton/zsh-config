@@ -34,7 +34,7 @@ tmux split-window -v -t $SESSION_NAME:main.3
 tmux select-window -t $SESSION_NAME:main
 tmux select-pane -t $SESSION_NAME:main.1
 tmux resize-pane -t $SESSION_NAME:main.1 -x 122
-tmux resize-pane -t $SESSION_NAME:main.1 -y 36
+tmux resize-pane -t $SESSION_NAME:main.1 -y 35
 tmux resize-pane -t $SESSION_NAME:main.3 -y 17
 
 # Execute commands in each pane
