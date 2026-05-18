@@ -35,6 +35,7 @@ tmux send-keys -t "$right_iotop_pane" 'sudo iotop -oP' C-m
 
 # Window 2: btop
 tmux new-window -t "$SESSION_NAME" -n btop -c "$HOME"
+tmux send-keys -t "$SESSION_NAME:btop" 'btop' C-m
 
 # Window 3: nvitop
 tmux new-window -t "$SESSION_NAME" -n nvitop -c "$HOME"
