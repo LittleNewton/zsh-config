@@ -6,6 +6,7 @@ ServerInfo=(
     z690-debian
     x1e-debian
     x299-debian
+    7060-debian
     gtr7-debian
     pi5-debian
 )
