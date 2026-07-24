@@ -22,13 +22,13 @@ left_iotop_pane=$(tmux split-window -v -p 36 -c "$HOME" -t "$shell_pane" -P -F "
 tmux resize-pane -t "$shell_pane" -y 34
 
 right_iotop_pane=$(tmux split-window -v -p 70 -c "$HOME" -t "$zpool_pane" -P -F "#{pane_id}")
-tmux resize-pane -t "$zpool_pane" -y 18
+tmux resize-pane -t "$zpool_pane" -y 21
 
 # Pane 2: sudo iotop -oP
 tmux send-keys -t "$left_iotop_pane" 'sudo iotop -oP' C-m
 
 # Pane 3: zpool iostat watch command
-pools="zroot Hikvision_C2000Pro_Stripe Intel_750_RAID-Z1"
+pools="zroot Hikvision_C2000Pro_Stripe Intel_750_RAID-Z1 Samsung_PM9A3_Stripe"
 tmux send-keys -t "$zpool_pane" "watch -t -n 0.1 zpool iostat -L -yv $pools 1 1" C-m
 
 # Pane 4: sudo iotop -oPa
@@ -43,6 +43,9 @@ tmux new-window -t "$SESSION_NAME" -n codec -c "$HOME"
 
 # Window 4: fuzzing
 tmux new-window -t "$SESSION_NAME" -n fuzzing -c "$HOME"
+
+# Window 5: node
+tmux new-window -t "$SESSION_NAME" -n node -c "$HOME"
 
 # Select the first window and shell pane, matching the current 4950-debian session
 tmux select-window -t "$SESSION_NAME:main"
