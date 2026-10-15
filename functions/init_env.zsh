@@ -23,23 +23,26 @@ export DEFAULT_MAMBA_ENV="py314"
 # 存储池相关目录
 if [[ $os_type == "Debian" || $os_type == "TrueNAS_SCALE" ]]; then
     # Level 1: Storage Pools
+    # samsung and wd are local on r740-debian, other hosts mount them over NFS
+    # at the same paths; dapustor is local on 4950-debian.
+    export  samsung="/mnt/Samsung_PM9A3_Stripe"
     export dapustor="/mnt/DapuStor_R5100_RAID-Z1"
-    export  toshiba="/mnt/Toshiba_MG06S_RAID-Z1"
     export       wd="/mnt/WD_HC550_RAID-Z1"
     export      cd2="/mnt/CloudDrive"
 
     # Level 2: Main Directories
-    export  appdata="${dapustor}/AppData"
-    export   backup="${dapustor}/Backup"
-    export      doc="${dapustor}/Documents"
+    export  appdata="${samsung}/AppData"
+    export   backup="${samsung}/Backup"
+    export      doc="${samsung}/Documents"
     export     repo="${dapustor}/Develop"
-    export     work="${dapustor}/Work"
+    export     work="${samsung}/Work"
     export     soft="${backup}/installers"
+    export download="${wd}/Downloads"
 
     # Media management, only for MDCx and tinyMediaManager
     export     mdcx="${work}/mdcx"
     export   failed="${mdcx}/failed"
-    export      tmm="${work}/tmm"
+    export      tmm="${download}/tmm"
 
     # CloudDrive mount points
     export   pan115="${cd2}/115"
@@ -72,7 +75,7 @@ if [[ $os_type == "Debian" || $os_type == "TrueNAS_SCALE" ]]; then
     export     edul="${jellyl}/db_education"
 
     # Local media storage on SSD
-    export   media2="${dapustor}/Media"
+    export   media2="${samsung}/Media"
     export   musedb="${media2}/Music"
     export    imgdb="${media2}/Pictures"
     export  videodb="${media2}/Videos"
@@ -83,7 +86,8 @@ if [[ $os_type == "Debian" || $os_type == "TrueNAS_SCALE" ]]; then
     export   gamedb="${videodb}/db_game"
     export   livedb="${videodb}/db_live"
     export    outdb="${videodb}/db_cinema"
-    export    devdb="${videodb}/via_devices"
+    export  diarydb="${videodb}/db_diary"
+    export   escodb="${videodb}/db_escort"
 
     # Jellyfin database, metadata/strm files only
     export    jelly="${appdata}/Jellyfin"
@@ -93,7 +97,6 @@ if [[ $os_type == "Debian" || $os_type == "TrueNAS_SCALE" ]]; then
     export     tvdb="${jmedia}/db_tv_series"
 
     # Other useful directories
-    export download="${toshiba}/Downloads"
     export   xunlei="${download}/Xunlei_Downloads"
     export     qbit="${download}/qBittorrent_Downloads"
     export      byr="${qbit}/byr"
@@ -114,7 +117,7 @@ fi
 
 # 编译 OpenWrt 相关
 if [[ $HOST == "4950-debian" ]]; then
-    export openwrt="/mnt/Intel_750_RAID-Z1/openwrt-compile/openwrt"
+    export openwrt="${repo}/openwrt/openwrt"
 fi
 
 # macOS 特殊路径
