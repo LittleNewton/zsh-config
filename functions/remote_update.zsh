@@ -1,11 +1,10 @@
-# 全局服务器信息
+# 批量执行/更新的主机白名单；每项必须存在于 ~/.ssh/config。
+# SSH 配置还包含 NAS、Windows、路由器等设备，不应全部加入此列表。
 ServerInfo=(
     5820-debian
     4950-debian
     r740-debian
     z690-debian
-    x1e-debian
-    x299-debian
     7060-debian
     gtr7-debian
     pi5-debian

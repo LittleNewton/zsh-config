@@ -3,16 +3,16 @@ Host github.com
     Port 443
     User git
 
+Host 5820-win10
+    HostName 5820-win10
+    User newton
+    Port 22
+    Compression yes
+
 Host 5820-debian
     HostName 5820-debian
     User newton
     Port 21221
-    Compression yes
-
-Host h12-truenas
-    HostName h12-truenas
-    User newton
-    Port 22133
     Compression yes
 
 Host 4950-debian
@@ -22,9 +22,21 @@ Host 4950-debian
     Compression yes
 
 Host r740-debian
-    hostName r740-debian
+    HostName r740-debian
     User newton
     Port 22421
+    Compression yes
+
+Host r740-dsm
+    HostName r740-dsm
+    User newton
+    Port 22
+    Compression yes
+
+Host r740-fnos
+    HostName r740-fnos
+    User newton
+    Port 22
     Compression yes
 
 Host z690-debian
@@ -33,22 +45,22 @@ Host z690-debian
     Port 22521
     Compression yes
 
-Host x1e-debian
-    HostName x1e-debian
+Host x1e-win10
+    HostName x1e-win10
     User newton
-    Port 22621
+    Port 22
     Compression yes
 
-Host x299-debian
-    HostName x299-debian
+Host gtr7-win10
+    HostName gtr7-win10
     User newton
-    Port 22721
+    Port 22
     Compression yes
 
 Host gtr7-debian
     HostName gtr7-debian
     User newton
-    Port 24121
+    Port 23121
     Compression yes
 
 Host fra-debian
@@ -58,7 +70,7 @@ Host fra-debian
     Compression yes
 
 Host cisco-switch
-    HostName 10.2.0.90
+    HostName cisco-switch
     User admin
     Port 22
     Compression yes
@@ -81,8 +93,20 @@ Host dorm-openwrt
     Port 23110
     Compression yes
 
-Host bham-openwrt
-    HostName bham-openwrt
+Host office-openwrt
+    HostName office-openwrt
     User root
     Port 24110
+    Compression yes
+
+Host pi5-debian
+    HostName pi5-debian
+    User newton
+    Port 22
+    Compression yes
+
+Host 7060-debian
+    HostName 7060-debian
+    User newton
+    Port 24121
     Compression yes

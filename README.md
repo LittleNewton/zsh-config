@@ -37,11 +37,22 @@ If you want to recover your old zsh history, you should `cp ~/.zsh_history ${XDG
 
 ### SSH config
 
-`remote-exe` command needs a well defined `~/.ssh/config`. An example, customized for myself, is provided in [`config/ssh_entries`](/config/ssh_entries). This command should work great with my workflow.
+`remote-exe` needs a well defined `~/.ssh/config`. [`config/ssh_entries`](config/ssh_entries)
+is a snapshot of my SSH configuration for setting up other hosts. When the live
+`~/.ssh/config` changes, sync those changes back to this snapshot.
 
 ``` bash
 cp ~/.config/zsh/config/ssh_entries ~/.ssh/config
 ```
+
+`ServerInfo` in [`functions/remote_update.zsh`](functions/remote_update.zsh) is the
+explicit target list shared by `remote-exe` and `remote-update`. Keep its aliases
+in sync with the SSH configuration; adding an SSH entry does not automatically
+enroll that host in batch commands or OS upgrades. NAS appliances, Windows hosts,
+routers, and switches are managed separately.
+
+Host-specific `init-tmux` layouts live in `tmux/<short-hostname>.sh`. Remove retired
+hosts' scripts and check the new host's tools and storage pools before adding a layout.
 
 ### Docker Environment
 
