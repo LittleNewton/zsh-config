@@ -147,6 +147,8 @@ This fallback matters because some upstream releases are not perfectly consisten
 
 - Linux only in the module layer
 - download `nvim-linux-<arch>.appimage`
+- download and verify in a temporary directory before replacing the installed
+  `nvim.appimage`; provide a `nvim` launcher with `APPIMAGE_EXTRACT_AND_RUN=1`
 - use `_ltnt_asset_arch nvim`
   - `x86_64`
   - `arm64`

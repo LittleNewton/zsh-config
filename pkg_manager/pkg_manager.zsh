@@ -163,11 +163,12 @@ function ltnt_install() {
             local script="${module_dir}/${pkg}.zsh"
             local fn="install_${pkg}"
             if [[ -f "$script" ]]; then
-                source "$script"
+                source "$script" || return $?
                 if typeset -f "$fn" > /dev/null 2>&1; then
                     $fn "$install_dir"
                 else
-                    echo "Warning: Install function $fn not found in $script." >&2
+                    echo "Error: Install function $fn not found in $script." >&2
+                    return 1
                 fi
             else
                 echo "Error: $pkg installation script not found in ${script}" >&2
@@ -175,11 +176,13 @@ function ltnt_install() {
             fi
         }
 
+        local install_result=0
+        local -a failed_packages=()
         case $package in
         joshuto|lazygit|neovim|yazi)
             local script_name=$package
             [[ $package == "neovim" ]] && script_name="nvim"
-            _ltnt_run_install "$script_name"
+            _ltnt_run_install "$script_name" || install_result=$?
             ;;
         all)
             echo "Installing all available packages to ${install_dir}..."
@@ -187,9 +190,15 @@ function ltnt_install() {
                 if [[ -f "$script" ]]; then
                     local script_name=$(basename "$script" .zsh)
                     echo "Installing ${script_name}..."
-                    _ltnt_run_install "$script_name"
+                    if ! _ltnt_run_install "$script_name"; then
+                        failed_packages+=("$script_name")
+                        install_result=1
+                    fi
                 fi
             done
+            if (( ${#failed_packages} )); then
+                print -u2 -r -- "Failed packages: ${(j:, :)failed_packages}"
+            fi
             ;;
         *)
             echo "Error: Unsupported package '$package'." >&2
@@ -199,6 +208,7 @@ function ltnt_install() {
         esac
 
         unfunction _ltnt_run_install
+        return "$install_result"
     else
         echo "Error: Unsupported OS type '$os_type'. This script supports macOS, Debian, Ubuntu, and TrueNAS SCALE." >&2
         return 1
