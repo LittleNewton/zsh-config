@@ -1,15 +1,42 @@
-# Read NFS targets from the client's fstab or current mount table.
-# Server addresses, paths and transport options are maintained in fstab.
-_nfs_targets() {
-    local table=$1 entries target
-
+# findmnt uses exit 1 for both an empty result and some errors. Check that the
+# table is readable and capture diagnostics before treating exit 1 as no match.
+_nfs_findmnt() {
     if ! command -v findmnt >/dev/null 2>&1; then
         print -u2 -- "ERROR: NFS management requires findmnt (util-linux)."
         return 1
     fi
+    local table_file
+    case "$1" in
+        --fstab) table_file=/etc/fstab ;;
+        --kernel) table_file=/proc/self/mountinfo ;;
+        *) print -u2 -- "ERROR: Invalid mount table."; return 1 ;;
+    esac
+    if [[ ! -r "$table_file" ]]; then
+        print -u2 -r -- "ERROR: Cannot read mount table: $table_file"
+        return 1
+    fi
 
-    # findmnt exits with 1 when no matching NFS entries exist.
-    entries=$(findmnt "$table" --raw --noheadings --types nfs,nfs4 --output TARGET)
+    local error_file output diagnostics query_result=0
+    error_file=$(mktemp "${TMPDIR:-/tmp}/zsh-findmnt.XXXXXXXX") || return 1
+    output=$(findmnt "$@" 2>"$error_file") || query_result=$?
+    diagnostics=$(<"$error_file")
+    rm -f -- "$error_file"
+    if (( query_result == 0 )) && [[ -z "$diagnostics" ]]; then
+        [[ -z "$output" ]] || print -r -- "$output"
+        return 0
+    elif (( query_result == 1 )) && [[ -z "$output" && -z "$diagnostics" ]]; then
+        return 0
+    fi
+    print -u2 -r -- "ERROR: findmnt could not query $table_file (exit $query_result)."
+    [[ -z "$diagnostics" ]] || print -u2 -r -- "$diagnostics"
+    return 1
+}
+
+# Read NFS targets from the client's fstab or current mount table.
+# Server addresses, paths and transport options are maintained in fstab.
+_nfs_targets() {
+    local table=$1 entries target
+    entries=$(_nfs_findmnt "$table" --raw --noheadings --types nfs,nfs4 --output TARGET) || return 1
     while IFS= read -r target; do
         # --raw hex-escapes whitespace and other unsafe characters.
         printf -v target '%b' "$target"
@@ -22,7 +49,7 @@ _nfs_targets() {
 
 # Get the topmost filesystem at this exact mountpoint, not its parent.
 _nfs_mount_type() {
-    findmnt --kernel --raw --noheadings --nocanonicalize \
+    _nfs_findmnt --kernel --raw --noheadings --nocanonicalize \
         --direction backward --first-only --mountpoint "$1" --output FSTYPE
 }
 
@@ -38,7 +65,10 @@ mount_nfs() {
     # Sorting also puts any explicitly configured parent before its children.
     local -a ordered_targets=("${(@f)targets}")
     for target in "${(@ou)ordered_targets}"; do
-        fs_type=$(_nfs_mount_type "$target")
+        if ! fs_type=$(_nfs_mount_type "$target"); then
+            result=1
+            continue
+        fi
         case "$fs_type" in
             nfs|nfs4)
                 print -r -- "INFO: Already mounted: $target"
@@ -85,7 +115,10 @@ unmount_nfs() {
     fi
 
     for target in "${(@Ou)ordered_targets}"; do
-        fs_type=$(_nfs_mount_type "$target")
+        if ! fs_type=$(_nfs_mount_type "$target"); then
+            result=1
+            continue
+        fi
         case "$fs_type" in
             nfs|nfs4)
                 print -r -- "Unmounting NFS share: $target"
