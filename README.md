@@ -51,6 +51,10 @@ in sync with the SSH configuration; adding an SSH entry does not automatically
 enroll that host in batch commands or OS upgrades. NAS appliances, Windows hosts,
 routers, and switches are managed separately.
 
+`remote-exe` continues through the target list and reports failed hosts, returning
+a nonzero status if any command fails. `os-update` likewise reports failed stages;
+a failed command stops its stage while later stages still run.
+
 Host-specific `init-tmux` layouts live in `tmux/<short-hostname>.sh`. Remove retired
 hosts' scripts and check the new host's tools and storage pools before adding a layout.
 

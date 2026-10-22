@@ -11,27 +11,33 @@ ServerInfo=(
 )
 
 function remote-exe() {
-    local localUsername="newton"
-
     if [ $# -eq 0 ]; then
-        echo "Usage: remote-exe <command>" | lolcat
+        print -- "Usage: remote-exe <command>"
         return 1
     fi
 
-    local command="$*"
+    local command="$*" server command_result
+    local -a failed_hosts=()
 
     for server in "${ServerInfo[@]}"; do
-        # Using awk to extract each part of the server info
-
-        echo "===================================== ↓ ↓ ↓ =====================================" | lolcat
-        echo "Run command '$command' on $server" | lolcat
-        ssh "$server" "$command"
-        echo "Command on $server is done." | lolcat
-        echo ""
+        print -- "===================================== ↓ ↓ ↓ ====================================="
+        print -r -- "Run command '$command' on $server"
+        if ssh "$server" "$command"; then
+            print -r -- "Command on $server is done."
+        else
+            command_result=$?
+            failed_hosts+=("$server (exit $command_result)")
+            print -u2 -r -- "ERROR: Command on $server failed (exit $command_result)."
+        fi
+        print
     done
 
-    echo "All remote jobs are done." | lolcat
-    echo ""
+    if (( ${#failed_hosts} )); then
+        print -u2 -r -- "Failed hosts: ${(j:, :)failed_hosts}"
+        return 1
+    fi
+    print -- "All remote jobs completed successfully."
+    return 0
 }
 
 function remote-update() {
