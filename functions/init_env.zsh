@@ -128,10 +128,6 @@ if [[ $os_type == "macOS" ]]; then
     # Homebrew binary
     export PATH="/opt/homebrew/bin:$PATH"
 
-    # Java
-    export JAVA_HOME="/Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home"
-    export PATH="$JAVA_HOME/bin:$PATH"
-
     # Arm Toolchain
     export PATH="$HOME/.local/opt/arm-none-eabi/bin:$PATH"
     export PATH="$HOME/.local/opt/arm-none-eabi/arm-none-eabi/bin:$PATH"
@@ -145,13 +141,6 @@ if [[ $os_type == "macOS" ]]; then
     # mtr
     export PATH="/opt/homebrew/Cellar/mtr/0.95/sbin/:$PATH"
 
-    # LM Studio
-    export PATH="$PATH:/Users/newton/.lmstudio/bin"
-
-    # Antigravity
-    export PATH="/Users/newton/.antigravity/antigravity/bin:$PATH"
-
-    
 fi
 
 # Go 语言相关
@@ -167,11 +156,49 @@ fi
 
 # Ghidra 相关
 if [[ $os_type == "Debian" ]]; then
-    export JAVA_HOME="/usr/lib/jvm/java-17-openjdk-amd64"
     export GHIDRA_VERSION="12.0.4"
     export GHIDRA="${HOME}/.local/opt/ghidra_${GHIDRA_VERSION}_PUBLIC"
     export PATH="$GHIDRA/support:$PATH"
 fi
+
+# Preserve a valid user-selected JVM; otherwise detect the installed JVM
+# using the current OS rather than a fixed Java version or CPU architecture.
+_init_java_home() {
+    if [[ -n "$JAVA_HOME" && -x "$JAVA_HOME/bin/java" ]]; then
+        export JAVA_HOME
+        return 0
+    fi
+
+    local detected_java_home="" java_binary
+    case "$os_type" in
+        macOS)
+            if [[ -x /usr/libexec/java_home ]]; then
+                detected_java_home=$(/usr/libexec/java_home 2>/dev/null) || detected_java_home=""
+            fi
+            ;;
+        Debian|Ubuntu|TrueNAS_SCALE)
+            java_binary=$(whence -p java)
+            if [[ -n "$java_binary" ]]; then
+                java_binary=${java_binary:A}
+                detected_java_home=${java_binary:h:h}
+            fi
+            ;;
+    esac
+    if [[ -n "$detected_java_home" && -x "$detected_java_home/bin/java" ]]; then
+        export JAVA_HOME="$detected_java_home"
+    else
+        unset JAVA_HOME
+    fi
+}
+
+case "$os_type" in
+    macOS|Debian|Ubuntu|TrueNAS_SCALE)
+        _init_java_home
+        if [[ "$os_type" == macOS && -n "$JAVA_HOME" ]]; then
+            export PATH="$JAVA_HOME/bin:$PATH"
+        fi
+        ;;
+esac
 
 # Another bin
 export PATH="$HOME/.local/bin:$PATH"
