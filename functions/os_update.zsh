@@ -38,7 +38,7 @@ function _os_update_nvm() {
     print -P "%F{yellow}> Updating nvm via git...%f"
     (
         cd "$NVM_DIR" || return $?
-        git fetch --tags origin || return $?
+        git fetch --ipv4 --tags origin || return $?
         local latest_commit latest_tag
         latest_commit=$(git rev-list --tags --max-count=1) || return $?
         [[ -n "$latest_commit" ]] || return 1
@@ -118,8 +118,8 @@ function _os_update_os_packages() {
                 print -P "%F{red}ERROR: yum not found on RedHat system.%f"
                 return 1
             fi
-            sudo yum update -y || return $?
-            sudo yum autoremove -y || return $?
+            sudo yum --setopt=ip_resolve=4 update -y || return $?
+            sudo yum --setopt=ip_resolve=4 autoremove -y || return $?
             sudo yum clean all
             ;;
         *)
