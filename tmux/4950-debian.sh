@@ -19,10 +19,12 @@ zpool_pane=$(tmux split-window -h -p 36 -c "$HOME" -t "$shell_pane" -P -F "#{pan
 tmux resize-pane -t "$shell_pane" -x 125
 
 left_iotop_pane=$(tmux split-window -v -p 36 -c "$HOME" -t "$shell_pane" -P -F "#{pane_id}")
+# With a one-line status bar, attaching at 190x58 gives top panes 33/36 rows.
+# The detached canvas needs one extra row for each top pane.
 tmux resize-pane -t "$shell_pane" -y 34
 
 right_iotop_pane=$(tmux split-window -v -p 70 -c "$HOME" -t "$zpool_pane" -P -F "#{pane_id}")
-tmux resize-pane -t "$zpool_pane" -y 35
+tmux resize-pane -t "$zpool_pane" -y 37
 
 # Pane 2: sudo iotop -oP
 tmux send-keys -t "$left_iotop_pane" 'sudo iotop -oP' C-m
@@ -41,11 +43,8 @@ tmux send-keys -t "$SESSION_NAME:btop" 'btop' C-m
 # Window 3: codec
 tmux new-window -t "$SESSION_NAME" -n codec -c "$HOME"
 
-# Window 4: fuzzing
-tmux new-window -t "$SESSION_NAME" -n fuzzing -c "$HOME"
-
-# Window 5: node
-tmux new-window -t "$SESSION_NAME" -n node -c "$HOME"
+# Window 4: codex
+tmux new-window -t "$SESSION_NAME" -n codex -c "$HOME"
 
 # Select the first window and shell pane, matching the current 4950-debian session
 tmux select-window -t "$SESSION_NAME:main"
