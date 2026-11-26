@@ -57,12 +57,6 @@ Host gtr7-win10
     Port 22
     Compression yes
 
-Host gtr7-debian
-    HostName gtr7-debian
-    User newton
-    Port 23121
-    Compression yes
-
 Host fra-debian
     HostName fra-debian
     User newton

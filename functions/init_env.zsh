@@ -111,9 +111,6 @@ elif [[ $os_type == "macOS" ]]; then
     export   panali="${cd2}/aliyundrive"
 fi
 
-if [[ $HOST == "gtr7-debian" ]]; then
-    export uk="/mnt/Samsung_990Pro_Stripe"
-fi
 
 # 编译 OpenWrt 相关
 if [[ $HOST == "4950-debian" ]]; then
